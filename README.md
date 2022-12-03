@@ -503,7 +503,7 @@ Version 5.5 requires Android Studio 4.0 or later.
     * Very large improvement on Control Hub; up to ~2x faster with small (e.g. 6 byte) reads
     * Not as apparent on Expansion Hubs connected to a phone
 * Update/refresh build infrastructure
-    * Update to 'androidx' support library from 'com.android.support:appcompat', which is end-of-life
+    * Update to 'androidx' support edu.edina.opmodes.library from 'com.android.support:appcompat', which is end-of-life
     * Update targetSdkVersion and compileSdkVersion to 28
     * Update Android Studio's Android plugin to latest
     * Fix reported build timestamp in 'About' screen
@@ -700,7 +700,7 @@ Changes include:
  * Removed samples for non supported / non legal hardware.
  * Improvements to Telemetry.addData block with "text" socket.
  * Updated Blocks sample op mode list to include Rover Ruckus Vuforia example.
- * Update SDK library version number.
+ * Update SDK edu.edina.opmodes.library version number.
 
 ## Version 4.0 (released on 18.09.12)
 
@@ -1242,7 +1242,7 @@ Changes include:
  * made ReadWriteRunnableStanard interface public.
  * fixed off-by-one errors in Command constructor
  * moved specific hardware implmentations into their own package.
- * moved specific gamepad implemnatations to the hardware library.
+ * moved specific gamepad implemnatations to the hardware edu.edina.opmodes.library.
  * changed LICENSE file to new BSD version.
  * fixed race condition when shutting down Modern Robotics USB devices.
  * methods in the ColorSensor classes have been synchronized.
