@@ -32,6 +32,8 @@ public class NoThreadTeleop extends OpMode {
         robot.drive.setDriveProperties(gamepad1.left_stick_x, gamepad1.left_stick_y,
                 gamepad1.right_stick_x, _gamepad1.dpad_left, _gamepad1.dpad_up, _gamepad1.dpad_right);
 
+        robot.driveRR.setDriveProperties(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+
         robot.lift.setLiftProperties(gamepad2.right_stick_y, _gamepad2.dpad_left, _gamepad2.dpad_right,
                 gamepad2.left_bumper, gamepad2.right_bumper, _gamepad2.dpad_up, _gamepad2.dpad_down,
                 _gamepad2.x, _gamepad2.y, _gamepad2.b, _gamepad2.a);

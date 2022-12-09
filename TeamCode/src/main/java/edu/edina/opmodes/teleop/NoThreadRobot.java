@@ -10,12 +10,14 @@ import java.util.List;
 import edu.edina.library.subsystems.Intake2;
 import edu.edina.library.subsystems.Lift2;
 import edu.edina.library.subsystems.MecanumDrive;
+import edu.edina.library.subsystems.MecanumDriveRR;
 import edu.edina.library.subsystems.Subsystem;
 import edu.edina.library.util.RobotState;
 
 public class NoThreadRobot {
     private List<Subsystem> subsystems;
     private Telemetry telemetry;
+    public MecanumDriveRR driveRR;
     public MecanumDrive drive;
     public Lift2 lift;
     public Intake2 intake;
@@ -34,7 +36,10 @@ public class NoThreadRobot {
         subsystems = new ArrayList<>();
 
         drive = new MecanumDrive(opMode.hardwareMap, robotState);
-        subsystems.add(drive);
+        //subsystems.add(drive);
+
+        driveRR = new MecanumDriveRR(opMode.hardwareMap, robotState);
+        subsystems.add(driveRR);
 
         lift = new Lift2(opMode.hardwareMap, robotState);
         subsystems.add(lift);
