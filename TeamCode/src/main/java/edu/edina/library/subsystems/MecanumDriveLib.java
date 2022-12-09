@@ -1,5 +1,6 @@
 package edu.edina.library.subsystems;
 
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -11,7 +12,7 @@ public class MecanumDriveLib extends Subsystem{
     private double leftStickX;
     private double leftStickY;
     private double rightStickX;
-    private MecanumDrive drive;
+    private com.arcrobotics.ftclib.drivebase.MecanumDrive drive;
 
     public MecanumDriveLib(HardwareMap map, RobotState RobotState){
         Motor fL = new Motor(map, "leftFront", Motor.GoBILDA.RPM_312);
