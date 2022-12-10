@@ -2,6 +2,7 @@ package edu.edina.library.subsystems;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -16,6 +17,7 @@ public class MecanumDriveRR extends Subsystem{
 
     public MecanumDriveRR(HardwareMap map, RobotState RobotState){
         drive = new SampleMecanumDrive(map);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override

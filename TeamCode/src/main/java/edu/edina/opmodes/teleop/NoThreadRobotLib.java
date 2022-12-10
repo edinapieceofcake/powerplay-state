@@ -15,11 +15,9 @@ import edu.edina.library.subsystems.MecanumDriveRR;
 import edu.edina.library.subsystems.Subsystem;
 import edu.edina.library.util.RobotState;
 
-public class NoThreadRobot {
+public class NoThreadRobotLib {
     private List<Subsystem> subsystems;
     private Telemetry telemetry;
-    public MecanumDriveRR driveRR;
-    public MecanumDrive drive;
     public MecanumDriveLib driveLib;
     public Lift2 lift;
     public Intake2 intake;
@@ -32,13 +30,13 @@ public class NoThreadRobot {
         }
     }
 
-    public NoThreadRobot(OpMode opMode, Telemetry telemetry) {
+    public NoThreadRobotLib(OpMode opMode, Telemetry telemetry) {
         this.telemetry = telemetry;
 
         subsystems = new ArrayList<>();
 
-        drive = new MecanumDrive(opMode.hardwareMap, robotState);
-        subsystems.add(drive);
+        driveLib = new MecanumDriveLib(opMode.hardwareMap, robotState);
+        subsystems.add(driveLib);
 
         //lift = new Lift2(opMode.hardwareMap, robotState);
         //subsystems.add(lift);

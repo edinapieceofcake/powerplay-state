@@ -18,13 +18,13 @@ public class WheelLocationClampTest extends OpMode {
     @Override
     public void init() {
         _gamepad1 = new Stickygamepad(gamepad1);
-        _frontLeft = hardwareMap.dcMotor.get("fl");
+        _frontLeft = hardwareMap.dcMotor.get("leftFront");
         _frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        _frontRight = hardwareMap.dcMotor.get("fr");
+        _frontRight = hardwareMap.dcMotor.get("rightFront");
         _frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        _backLeft = hardwareMap.dcMotor.get("bl");
+        _backLeft = hardwareMap.dcMotor.get("leftRear");
         _backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        _backRight = hardwareMap.dcMotor.get("br");
+        _backRight = hardwareMap.dcMotor.get("rightRear");
         _backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
