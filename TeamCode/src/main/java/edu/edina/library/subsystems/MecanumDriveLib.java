@@ -1,6 +1,7 @@
 package edu.edina.library.subsystems;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -13,6 +14,7 @@ public class MecanumDriveLib extends Subsystem{
     private double leftStickY;
     private double rightStickX;
     private com.arcrobotics.ftclib.drivebase.MecanumDrive drive;
+    private RevIMU imu;
 
     public MecanumDriveLib(HardwareMap map, RobotState RobotState){
         Motor fL = new Motor(map, "leftFront", Motor.GoBILDA.RPM_312);
@@ -21,14 +23,19 @@ public class MecanumDriveLib extends Subsystem{
         Motor bR = new Motor(map, "LeftFront", Motor.GoBILDA.RPM_312);
 
         drive = new MecanumDrive(fL, fR, bL, bR);
+        imu = new RevIMU(map);
+        imu.init();
+
     }
 
     @Override
     public void update() {
-        drive.driveRobotCentric(
+        drive.driveFieldCentric(
                 leftStickX,
                 leftStickY,
-                rightStickX
+                rightStickX,
+                imu.getRotation2d().getDegrees(),   // gyro value passed in here must be in degrees
+                false
         );
     }
 

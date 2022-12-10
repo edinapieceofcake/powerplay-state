@@ -1,13 +1,13 @@
-package com.edinaftc.opmodes.test;
+package edu.edina.opmodes.test;
 
-import com.edinaftc.library.util.Stickygamepad;
+import edu.edina.library.util.Stickygamepad;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp()
-@Disabled
+//@Disabled
 public class WheelLocationClampTest extends OpMode {
     Stickygamepad _gamepad1;
     DcMotor _frontLeft;
