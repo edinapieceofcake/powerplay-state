@@ -28,6 +28,7 @@ public class MecanumDriveLib extends Subsystem{
         bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
         drive = new MecanumDrive(fL, fR, bL, bR);
+        drive.setMaxSpeed(.75);
         imu = new RevIMU(map);
         imu.init();
 
@@ -41,7 +42,7 @@ public class MecanumDriveLib extends Subsystem{
                 -rightStickX,
                 //Added 180 because the control hub was facing the opposite direction of what we wanted so the robot would move opposite to the supposed direction
                 imu.getRotation2d().getDegrees() + 180,   // gyro value passed in here must be in degrees
-                false
+                true
         );
     }
 
