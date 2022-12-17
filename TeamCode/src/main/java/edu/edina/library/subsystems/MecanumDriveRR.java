@@ -3,6 +3,7 @@ package edu.edina.library.subsystems;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -14,10 +15,12 @@ public class MecanumDriveRR extends Subsystem{
     private double leftStickY;
     private double rightStickX;
     private SampleMecanumDrive drive;
+    private double speedMultiplier = .75;
 
     public MecanumDriveRR(HardwareMap map, RobotState RobotState){
         drive = new SampleMecanumDrive(map);
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        drive.setPoseEstimate(new Pose2d());
     }
 
     @Override
@@ -27,7 +30,7 @@ public class MecanumDriveRR extends Subsystem{
         // Create a vector from the gamepad x/y inputs
         // Then, rotate that vector by the inverse of that heading
         Vector2d input = new Vector2d(
-                -leftStickY
+                -leftStickY,
                 -leftStickX
         ).rotated(-poseEstimate.getHeading());
 
@@ -46,8 +49,8 @@ public class MecanumDriveRR extends Subsystem{
     }
 
     public void setDriveProperties(double leftStickX, double leftStickY, double rightStickX){
-        this.leftStickX = leftStickX;
-        this.leftStickY = leftStickY;
-        this.rightStickX = rightStickX;
+        this.leftStickX = leftStickX * speedMultiplier;
+        this.leftStickY = leftStickY * speedMultiplier;
+        this.rightStickX = rightStickX * speedMultiplier;
     }
 }
