@@ -21,6 +21,7 @@
 
 package edu.edina.opmodes.test;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -86,6 +87,8 @@ public class AprilTagDemo extends LinearOpMode
             }
         });
 
+        FtcDashboard.getInstance().startCameraStream(camera, 30);
+
         waitForStart();
 
         telemetry.setMsTransmissionInterval(50);
@@ -146,5 +149,7 @@ public class AprilTagDemo extends LinearOpMode
 
             sleep(20);
         }
+
+        FtcDashboard.getInstance().startCameraStream(camera, 30);
     }
 }
