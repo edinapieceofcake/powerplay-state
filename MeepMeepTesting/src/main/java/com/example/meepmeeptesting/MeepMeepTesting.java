@@ -35,7 +35,7 @@ public class MeepMeepTesting {
                 .setColorScheme(new ColorSchemeBlueLight())
                 .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-58, -10, Math.toRadians(45)))
+                        drive.trajectorySequenceBuilder(new Pose2d(-58, -10, Math.toRadians(0)))
                                 .forward(1)
                                 .splineTo(new Vector2d(-35,10), Math.toRadians(45))
                                 .build()
