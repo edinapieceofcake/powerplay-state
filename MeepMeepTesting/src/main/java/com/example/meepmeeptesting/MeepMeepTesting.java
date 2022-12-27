@@ -15,29 +15,30 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                .setDimensions(12, 12)
                 .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-35, -60, Math.toRadians(90)))
-                                .forward(55)
-                                .splineTo(new Vector2d(-35,10), Math.toRadians(45))
+                                .forward(25)
+                                .splineTo(new Vector2d(-30,-10), Math.toRadians(-180))
                                 .build()
                 );
         RoadRunnerBotEntity myBot2 = new DefaultBotBuilder(meepMeep)
                 .setColorScheme(new ColorSchemeBlueDark())
+                .setDimensions(12, 12)
                 .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-35, 10, Math.toRadians(45)))
-                                .back(10)
-                                .splineTo(new Vector2d(-58,-10), Math.toRadians(180))
+                        drive.trajectorySequenceBuilder(new Pose2d(-30, -10, Math.toRadians(-180)))
+                                .strafeTo(new Vector2d(-58,-12))
                                 .build()
                 );
         RoadRunnerBotEntity myBot3 = new DefaultBotBuilder(meepMeep)
+                .setDimensions(12, 12)
                 .setColorScheme(new ColorSchemeBlueLight())
                 .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-58, -10, Math.toRadians(45)))
-                                .forward(1)
-                                .splineTo(new Vector2d(-35,10), Math.toRadians(45))
+                        drive.trajectorySequenceBuilder(new Pose2d(-58, -12, Math.toRadians(-180)))
+                                .strafeTo(new Vector2d(-30,-10))
                                 .build()
                 );
 

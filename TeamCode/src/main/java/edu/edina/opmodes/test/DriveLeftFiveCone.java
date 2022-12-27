@@ -78,7 +78,7 @@ public class DriveLeftFiveCone extends LinearOpMode {
                 .lineToSplineHeading(new Pose2d(28, 10, Math.toRadians(245)))
                 .build();
 */
-        drive.followTrajectorySequence(traj);
+        //drive.followTrajectorySequence(traj);
 
         long startTime = System.currentTimeMillis();
         drive.followTrajectorySequenceAsync(strafe);
@@ -92,9 +92,11 @@ public class DriveLeftFiveCone extends LinearOpMode {
             telemetry.update();
         }
 
-        drive.setPoseEstimate(new Pose2d(58, 12, Math.toRadians(180)));
-        drive.followTrajectorySequence(forward);
+        //drive.setPoseEstimate(new Pose2d(58, 12, Math.toRadians(180)));
+        //drive.followTrajectorySequence(forward);
 
         PoseStorage.currentPose = drive.getPoseEstimate();
+        telemetry.addData("Pose", drive.getPoseEstimate());
+        telemetry.update();
     }
 }

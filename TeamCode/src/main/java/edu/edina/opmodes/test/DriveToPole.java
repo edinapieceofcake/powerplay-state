@@ -23,9 +23,10 @@ public class DriveToPole extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        drive.setPoseEstimate(new Pose2d(36, 64, Math.toRadians(270)));
-        TrajectorySequence traj =  drive.trajectorySequenceBuilder(new Pose2d(36, 64, Math.toRadians(270)))
-                .splineTo(new Vector2d(28, 10), Math.toRadians(245))
+        drive.setPoseEstimate(new Pose2d(-35, -60, Math.toRadians(90)));
+        TrajectorySequence traj = drive.trajectorySequenceBuilder(new Pose2d(-35, -60, Math.toRadians(90)))
+                .forward(25)
+                .splineTo(new Vector2d(-30,-10), Math.toRadians(-180))
                 .build();
 
         drive.followTrajectorySequence(traj);
