@@ -38,6 +38,7 @@ import org.opencv.core.MatOfPoint3f;
 import org.opencv.core.Point;
 import org.opencv.core.Point3;
 import org.opencv.core.Rect;
+import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -52,6 +53,8 @@ import java.util.List;
 public class DetectPolePipeline extends OpenCvPipeline
 {
     private Telemetry _telemetry;
+    private ArrayList<Double> lastFiveWidths;
+
     public DetectPolePipeline(Telemetry telemetry)
     {
         _telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -63,8 +66,7 @@ public class DetectPolePipeline extends OpenCvPipeline
     }
 
     @Override
-    public Mat processFrame(Mat input)
-    {
+    public Mat processFrame(Mat input) {
         Mat hsv = new Mat();
         Mat frame = new Mat();
 
@@ -78,7 +80,7 @@ public class DetectPolePipeline extends OpenCvPipeline
         Scalar lowerRed = new Scalar(0, 100, 100);
         Scalar upperRed = new Scalar(10, 255, 255);
 
-        Scalar lowYellow = new Scalar(20, 70, 80);
+        Scalar lowYellow = new Scalar(20, 70, 180);
         Scalar highYellow = new Scalar(32, 255, 255);
 
         Scalar lowYellow1 = new Scalar(11, 49, 76);
@@ -87,37 +89,17 @@ public class DetectPolePipeline extends OpenCvPipeline
         // Threshold the image to only get the red colors
         Core.inRange(hsv, lowYellow, highYellow, hsv);
 
-        /*
-                Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-
-        Scalar lowHSV = new Scalar(20, 70, 80);
-        Scalar highHSV = new Scalar(32, 255, 255);
-
-        Mat thresh = new Mat();
-
-        Core.inRange(mat, lowHSV, highHSV, thresh);
-
-        input.release();
-
-        thresh.copyTo(input);
-
-        mat.release();
-        thresh.release();
-
-         */
-        //hsv.copyTo(input);
-
         // Use morphological operators to remove noise
-        Imgproc.erode(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
-        Imgproc.dilate(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
+        //Imgproc.erode(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
+        //Imgproc.dilate(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
 
         // Use morphological operators to isolate the cone
-        Imgproc.dilate(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
-        Imgproc.erode(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
-
+        //Imgproc.dilate(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
+        //Imgproc.erode(hsv, hsv, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(5, 5)));
+/*
         // Find the contours of the cone
         List<MatOfPoint> contours = new ArrayList<>();
-        Imgproc.findContours(hsv, contours, new Mat(), Imgproc.RETR_CCOMP, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(hsv, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 
         _telemetry.addData("contours", contours.size());
        // Draw the contours on the original image
@@ -132,15 +114,18 @@ public class DetectPolePipeline extends OpenCvPipeline
                     maxValIdx = i;
                 }
 
-                _telemetry.addData("Contour Size", "%d, %f", i, contourArea);
+                _telemetry.addData("Contour Size", "%d, %f", maxValIdx, maxVal);
             }
 
-            //Imgproc.drawContours(frame, contours, maxValIdx, new Scalar(0, 0, 255), 10);
+            Imgproc.drawContours(frame, contours, maxValIdx, new Scalar(0, 0, 255), 2);
+            //RotatedRect rect = Imgproc.minAreaRect(new MatOfPoint2f(contours.get(maxValIdx).toArray()));
             Rect corners = Imgproc.boundingRect(contours.get(maxValIdx));
-            Imgproc.rectangle(frame, corners, new Scalar(0, 0, 255), 10);
-            double distance = 1224 * 1.5 / corners.width;
-            _telemetry.addData("Rectangle", corners);
-            _telemetry.addData("Distance", distance);
+            Imgproc.rectangle(frame, rect.boundingRect(), new Scalar(255, 0, 0), 5);
+            //double distance = 723.809 * 1.05 / rect.size.width;
+            _telemetry.addData("Rectangle Corners", corners);
+            _telemetry.addData("Rotated Rectangle", rect);
+            _telemetry.addData("Rotated Rectangle Corners", rect.boundingRect());
+            //_telemetry.addData("Distance", distance);
         }
 
         _telemetry.update();
@@ -163,7 +148,8 @@ public class DetectPolePipeline extends OpenCvPipeline
 
         frame.release();
         */
-        frame.copyTo(input);
+        //frame.copyTo(input);
+        hsv.copyTo(input);
         frame.release();
         hsv.release();
         return input;
