@@ -31,7 +31,7 @@ public class NoThreadTeleopRR extends OpMode {
         // set things into the robot from the gamepad or other sensors
 
         robot.driveRR.setDriveProperties(gamepad1.left_stick_x, gamepad1.left_stick_y,
-                gamepad1.right_stick_x);
+                gamepad1.right_stick_x, _gamepad1.dpad_up);
 
         /*
         robot.lift.setLiftProperties(gamepad2.right_stick_y, _gamepad2.dpad_left, _gamepad2.dpad_right,

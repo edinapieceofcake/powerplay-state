@@ -12,8 +12,8 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 public class MeepMeepTesting {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
-        double dropTime = .8;
-        double pickupTime = 1;
+        double dropTime = .7;
+        double pickupTime = .9;
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 .setDimensions(12, 12)
@@ -140,23 +140,20 @@ public class MeepMeepTesting {
                                 .strafeTo(new Vector2d(25, -10))
                                 .waitSeconds(dropTime) // drop sixth cone
                                 .strafeTo(new Vector2d(50, -12)) // park
-                                .build()
-                );
 
-        meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)
-                .setDarkMode(true)
-                .setBackgroundAlpha(0.95f)
-                .addEntity(myBot)
-                .addEntity(myBot2)
-                .addEntity(myBot3)
-                .addEntity(myBot4)
-                .addEntity(myBot5)
-                .addEntity(myBot6)
-                .addEntity(myBot7)
-                .addEntity(myBot8)
-                .addEntity(myBot9)
+//                .addEntity(myBot)
+//                .addEntity(myBot2)
+//                .addEntity(myBot3)
+//                .addEntity(myBot4)
+//                .addEntity(myBot5)
+//                .addEntity(myBot6)
+//                .addEntity(myBot7)
+//                .addEntity(myBot8)
+//                .addEntity(myBot9)
                 // comment this bot out if you want ot see all the other paths run faster as this bot is taking the entire 30 seconds.
                 .addEntity(myBot10)
+//                .addEntity(myBot11)
+               .addEntity(myBot12)
                 .start();
     }
 }

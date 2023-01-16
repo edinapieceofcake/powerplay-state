@@ -54,6 +54,16 @@ The readme.md file located in the [/TeamCode/src/main/java/org/firstinspires/ftc
 
 # Release Information
 
+## Version 8.1.1 (20221201-150726)
+
+This is a bug fix only release to address the following four issues.
+
+* [Issue #495](https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/495) - Can't create new blocks opmodes.
+* [Issue #492](https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/492) - Remove the final modifier from the OpMode's Telemetry object.
+* [Issue #500](https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/500) - Some devices cannot be configured when the Driver Station app has been updated to 8.1
+  * Updating either the Robot Controller app or the Driver Station app to 8.1.1 or later will fix this issue.
+* The Modern Robotics touch sensor was configurable as a  Digital Device. It can only be used as an Analog Device.
+
 ## Version 8.1 (20221121-115119)
 
 ### Breaking Changes
@@ -503,7 +513,7 @@ Version 5.5 requires Android Studio 4.0 or later.
     * Very large improvement on Control Hub; up to ~2x faster with small (e.g. 6 byte) reads
     * Not as apparent on Expansion Hubs connected to a phone
 * Update/refresh build infrastructure
-    * Update to 'androidx' support edu.edina.opmodes.library from 'com.android.support:appcompat', which is end-of-life
+    * Update to 'androidx' support library from 'com.android.support:appcompat', which is end-of-life
     * Update targetSdkVersion and compileSdkVersion to 28
     * Update Android Studio's Android plugin to latest
     * Fix reported build timestamp in 'About' screen
@@ -700,7 +710,7 @@ Changes include:
  * Removed samples for non supported / non legal hardware.
  * Improvements to Telemetry.addData block with "text" socket.
  * Updated Blocks sample op mode list to include Rover Ruckus Vuforia example.
- * Update SDK edu.edina.opmodes.library version number.
+ * Update SDK library version number.
 
 ## Version 4.0 (released on 18.09.12)
 
@@ -1242,7 +1252,7 @@ Changes include:
  * made ReadWriteRunnableStanard interface public.
  * fixed off-by-one errors in Command constructor
  * moved specific hardware implmentations into their own package.
- * moved specific gamepad implemnatations to the hardware edu.edina.opmodes.library.
+ * moved specific gamepad implemnatations to the hardware library.
  * changed LICENSE file to new BSD version.
  * fixed race condition when shutting down Modern Robotics USB devices.
  * methods in the ColorSensor classes have been synchronized.
