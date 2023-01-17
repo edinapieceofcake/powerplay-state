@@ -26,10 +26,15 @@ public class MecanumDriveRR extends Subsystem{
 
     Mode currentMode = Mode.DRIVER_CONTROL;
 
-    public MecanumDriveRR(HardwareMap map, RobotState RobotState){
-        drive = new SampleMecanumDrive(map);
-        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        drive.setPoseEstimate(PoseStorage.currentPose);
+    public MecanumDriveRR(HardwareMap map, RobotState robotState){
+        try {
+            drive = new SampleMecanumDrive(map);
+            drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            drive.setPoseEstimate(PoseStorage.currentPose);
+            robotState.DriveSuccessfullySetup = true;
+        } catch (Exception ex) {
+            robotState.DriveSuccessfullySetup = false;
+        }
     }
 
     @Override
