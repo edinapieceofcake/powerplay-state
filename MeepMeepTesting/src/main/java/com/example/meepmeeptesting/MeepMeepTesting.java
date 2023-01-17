@@ -151,9 +151,7 @@ public class MeepMeepTesting {
 //                .addEntity(myBot8)
 //                .addEntity(myBot9)
                 // comment this bot out if you want ot see all the other paths run faster as this bot is taking the entire 30 seconds.
-                .addEntity(myBot10)
 //                .addEntity(myBot11)
-               .addEntity(myBot12)
-                .start();
+                .start()));
     }
 }
