@@ -13,20 +13,20 @@ import edu.edina.library.util.Stickygamepad;
 @TeleOp
 //@Disabled
 public class TestIntake extends LinearOpMode {
-    private Servo clampServo;
+    private Servo clawServo;
     private Servo armServo;
 
     @Override
     public void runOpMode() throws InterruptedException {
         Stickygamepad pad1 = new Stickygamepad(gamepad1);
 
-        clampServo = hardwareMap.get(Servo.class, "clampServo");
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
         armServo = hardwareMap.get(Servo.class, "armServo");
 
         // set the digital channel to input.
         armServo.setPosition(.5);
 
-        clampServo.setPosition(.5);
+        clawServo.setPosition(.5);
 
         waitForStart();
 
@@ -34,11 +34,11 @@ public class TestIntake extends LinearOpMode {
             pad1.update();
 
             if (pad1.dpad_left) {
-                clampServo.setPosition(clampServo.getPosition() + .01);
+                clawServo.setPosition(clawServo.getPosition() + .01);
             }
 
             if (pad1.dpad_right) {
-                clampServo.setPosition(clampServo.getPosition() - .01);
+                clawServo.setPosition(clawServo.getPosition() - .01);
             }
 
             if (pad1.x) {
@@ -49,7 +49,7 @@ public class TestIntake extends LinearOpMode {
                 armServo.setPosition(armServo.getPosition() - .01);
             }
 
-            telemetry.addData("Clamp Servo", clampServo.getPosition());
+            telemetry.addData("Claw Servo", clawServo.getPosition());
             telemetry.addData("Arm Servo", armServo.getPosition());
             telemetry.update();
         }

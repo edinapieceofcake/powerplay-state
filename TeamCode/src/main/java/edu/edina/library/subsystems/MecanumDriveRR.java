@@ -73,7 +73,7 @@ public class MecanumDriveRR extends Subsystem{
 
     }
 
-    public void setDriveProperties(double leftStickX, double leftStickY, double rightStickX, boolean dPadUp){
+    public void setDriveProperties(double leftStickX, double leftStickY, double rightStickX){
         this.leftStickX = leftStickX * speedMultiplier;
         this.leftStickY = leftStickY * speedMultiplier;
         this.rightStickX = rightStickX * speedMultiplier;
@@ -82,10 +82,9 @@ public class MecanumDriveRR extends Subsystem{
             if (currentMode == Mode.AUTOMATIC_CONTROL){
                 drive.breakFollowing();
             }
-            currentMode = Mode.DRIVER_CONTROL;
         } else {
             this.dPadUp = dPadUp;
         }
-
+        currentMode = Mode.DRIVER_CONTROL;
     }
 }

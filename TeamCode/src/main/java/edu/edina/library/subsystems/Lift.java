@@ -48,10 +48,10 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
 //            liftMotor = map.get(DcMotorEx.class, "liftMotor");
             armServo = map.get(Servo.class, "armServo");
             clawServo = map.get(Servo.class, "clawServo");
-            liftSwitch = map.get(DigitalChannel.class, "liftSwitch");
+//            liftSwitch = map.get(DigitalChannel.class, "liftSwitch");
 
             // set the digital channel to input.
-            liftSwitch.setMode(DigitalChannel.Mode.INPUT);
+//            liftSwitch.setMode(DigitalChannel.Mode.INPUT);
 
 //            liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -135,7 +135,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             } else if (robotState.ArmServoPosition == ArmServoPosition.Back) {
                 armServo.setPosition(ARMBACKPOSTITION);
             }
-
+/*
             if (liftSwitch.getState() && !liftMotorReset) {
 //                liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //                liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -143,14 +143,14 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             } else {
                 liftMotorReset = false;
             }
-
+*/
 //            liftMotor.setPower(liftSpeed);
         }
 
-        robotState.LiftMotorLocation = liftMotor.getCurrentPosition();
+        //robotState.LiftMotorLocation = liftMotor.getCurrentPosition();
         robotState.ClawPosition = Math.round(clawServo.getPosition() * 100);
         robotState.ArmPosition = Math.round(armServo.getPosition() * 100);
-        robotState.LiftSwitch = liftSwitch.getState();
+        //robotState.LiftSwitch = liftSwitch.getState();
     }
 
     public void setLiftProperties(double liftUp, double liftDown, boolean armFront, boolean armSide, boolean armBack,
