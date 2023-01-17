@@ -3,8 +3,6 @@ package edu.edina.library.util;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class RobotState {
-    public CurrentOperation CurrentOperation;
-
     public DriveSpeed DriveSpeed = edu.edina.library.util.DriveSpeed.Medium;
 
     public long LiftDiff;

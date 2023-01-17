@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-import edu.edina.library.subsystems.Intake2;
 import edu.edina.library.subsystems.Lift2;
 import edu.edina.library.subsystems.MecanumDrive;
 import edu.edina.library.subsystems.Subsystem;
@@ -24,7 +23,6 @@ public class MultiThreadRobot {
     private Telemetry telemetry;
     public MecanumDrive drive;
     public Lift2 lift;
-    public Intake2 intake;
     public RobotState robotState = new RobotState();
 
     private Runnable subsystemUpdateRunnable = () -> {
@@ -61,13 +59,6 @@ public class MultiThreadRobot {
         try {
             lift = new Lift2(opMode.hardwareMap, robotState);
             subsystems.add(lift);
-        } catch (IllegalArgumentException e){
-
-        }
-
-        try {
-            intake = new Intake2(opMode.hardwareMap, robotState);
-            subsystems.add(intake);
         } catch (IllegalArgumentException e){
 
         }

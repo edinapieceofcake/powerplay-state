@@ -45,7 +45,7 @@ public class Lift2 extends edu.edina.library.subsystems.Subsystem {
 
     public Lift2(HardwareMap map, RobotState robotState) {
         try {
-            liftMotor = map.get(DcMotorEx.class, "liftMotor");
+//            liftMotor = map.get(DcMotorEx.class, "liftMotor");
             armServo = map.get(Servo.class, "armServo");
             clawServo = map.get(Servo.class, "clawServo");
             liftSwitch = map.get(DigitalChannel.class, "liftSwitch");
@@ -53,9 +53,9 @@ public class Lift2 extends edu.edina.library.subsystems.Subsystem {
             // set the digital channel to input.
             liftSwitch.setMode(DigitalChannel.Mode.INPUT);
 
-            liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//            liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             clawServo.setPosition(CLAWCLOSEDPOSITION);
             robotState.ClawServoPosition = ClawServoPosition.Closed;
@@ -137,14 +137,14 @@ public class Lift2 extends edu.edina.library.subsystems.Subsystem {
             }
 
             if (liftSwitch.getState() && !liftMotorReset) {
-                liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 liftMotorReset = true;
             } else {
                 liftMotorReset = false;
             }
 
-            liftMotor.setPower(liftSpeed);
+//            liftMotor.setPower(liftSpeed);
         }
 
         robotState.LiftMotorLocation = liftMotor.getCurrentPosition();
@@ -202,8 +202,8 @@ public class Lift2 extends edu.edina.library.subsystems.Subsystem {
         runningToPosition = false;
         atZeroPosition = false;
         robotState.TargetPoleLocation = PoleLocation.None;
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        liftMotor.setPower(0);
+//        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        liftMotor.setPower(0);
         clawOpenStartedTime = 0;
     }
 }
