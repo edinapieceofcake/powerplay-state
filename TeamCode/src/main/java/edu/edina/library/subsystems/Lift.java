@@ -11,7 +11,7 @@ import edu.edina.library.util.ArmServoPosition;
 import edu.edina.library.util.PoleLocation;
 import edu.edina.library.util.RobotState;
 
-public class Lift2 extends edu.edina.library.subsystems.Subsystem {
+public class Lift extends edu.edina.library.subsystems.Subsystem {
 
     private static double CLAWOPENPOSITION = 0.56;
     private static double CLAWCLOSEDPOSITION = 0.82;
@@ -43,7 +43,7 @@ public class Lift2 extends edu.edina.library.subsystems.Subsystem {
     private boolean liftMotorReset = false;
     private boolean clawOpen = false;
 
-    public Lift2(HardwareMap map, RobotState robotState) {
+    public Lift(HardwareMap map, RobotState robotState) {
         try {
 //            liftMotor = map.get(DcMotorEx.class, "liftMotor");
             armServo = map.get(Servo.class, "armServo");

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.edina.library.subsystems.Lift2;
+import edu.edina.library.subsystems.Lift;
 import edu.edina.library.subsystems.MecanumDriveLib;
 import edu.edina.library.subsystems.Subsystem;
 import edu.edina.library.util.RobotState;
@@ -16,7 +16,7 @@ public class NoThreadRobotLib {
     private List<Subsystem> subsystems;
     private Telemetry telemetry;
     public MecanumDriveLib driveLib;
-    public Lift2 lift;
+    public Lift lift;
     public RobotState robotState = new RobotState();
 
     public void update() {
@@ -34,7 +34,7 @@ public class NoThreadRobotLib {
         driveLib = new MecanumDriveLib(opMode.hardwareMap, robotState);
         subsystems.add(driveLib);
 
-        lift = new Lift2(opMode.hardwareMap, robotState);
+        lift = new Lift(opMode.hardwareMap, robotState);
         subsystems.add(lift);
     }
 
