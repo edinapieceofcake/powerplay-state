@@ -101,6 +101,7 @@ public class MecanumDriveRR extends Subsystem{
             }
         } else {
             this.dPadUp = dPadUp;
+            this.dPadDown = dPadDown;
         }
         currentMode = Mode.DRIVER_CONTROL;
     }
