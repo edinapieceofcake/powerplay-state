@@ -56,6 +56,7 @@ public class MecanumDriveRR extends Subsystem{
             // Rotation is not part of the rotated input thus must be passed in separately
             drive.setWeightedDrivePower(
                     new Pose2d(
+                            // To change to Robot centric change leftSticks to ____
                             -leftStickY,
                             -leftStickX,
                             -rightStickX
@@ -90,7 +91,7 @@ public class MecanumDriveRR extends Subsystem{
 
     }
 
-    public void setDriveProperties(double leftStickX, double leftStickY, double rightStickX){
+    public void setDriveProperties(double leftStickX, double leftStickY, double rightStickX, boolean dPadDown){
         this.leftStickX = leftStickX * speedMultiplier;
         this.leftStickY = leftStickY * speedMultiplier;
         this.rightStickX = rightStickX * speedMultiplier;
