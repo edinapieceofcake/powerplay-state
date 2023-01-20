@@ -22,9 +22,9 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private static double ARMSIDEPOSITION = 0.5;
 
 
-    private static int POLEPOSITIONLOW = -1008;
-    private static int POLEPOSITIONMIDDLE = -1900;
-    private static int POLEPOSITIONHIGH = -2600;
+    private static int POLEPOSITIONLOW = -1200;
+    private static int POLEPOSITIONMIDDLE = -2060;
+    private static int POLEPOSITIONHIGH = -2850;
 
     private static int CLAWOPENWAITTIME = 250;
     private static int LIFTRETURNHEiGHT = 0;
@@ -93,7 +93,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                 } else if (!atZeroPosition) {
                     robotState.LiftDiff = Math.abs(liftMotor.getCurrentPosition());
 
-                    if (robotState.LiftDiff < Math.abs(LIFTRETURNHEiGHT)) {
+                    if (robotState.LiftDiff < 10) {
                         resetState();
                     }
                 }
@@ -118,6 +118,14 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                         clawServo.setPosition(CLAWOPENPOSITION);
                     } else if (robotState.ClawServoPosition == ClawServoPosition.Closed) {
                         clawServo.setPosition(CLAWCLOSEDPOSITION);
+                    }
+
+                    if (robotState.ArmServoPosition == ArmServoPosition.Front) {
+                        armServo.setPosition(ARMFRONTPOSITION);
+                    } else if (robotState.ArmServoPosition == ArmServoPosition.Side) {
+                        armServo.setPosition(ARMSIDEPOSITION);
+                    } else if (robotState.ArmServoPosition == ArmServoPosition.Back) {
+                        armServo.setPosition(ARMBACKPOSTITION);
                     }
                 }
             }
