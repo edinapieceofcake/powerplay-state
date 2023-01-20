@@ -13,6 +13,7 @@ public class RobotState {
     public double ClawPosition = 0.0;
     public double ArmPosition = 0.0;
     public boolean LiftSwitch = false;
+    public double SpeedMultiplier = 0.0;
 
     public boolean LiftSuccessfullySetup = false;
     public boolean DriveSuccessfullySetup = false;
@@ -32,6 +33,7 @@ public class RobotState {
 
         if (DriveSuccessfullySetup) {
             telemetry.addData("Drive Speed", DriveSpeed);
+            telemetry.addData("Speed Multiplier", SpeedMultiplier);
         } else {
             telemetry.addData("edu.edina.library.subsystems.MecanumDrive: Unable to setup frontLeft, frontRight, backLeft, backRight motors", "");
         }
