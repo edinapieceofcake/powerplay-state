@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import edu.edina.library.util.Stickygamepad;
 
 @TeleOp
-//@Disabled
+@Disabled
 public class TestIntake extends LinearOpMode {
     private Servo clawServo;
     private Servo armServo;

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import edu.edina.library.util.Stickygamepad;
 
 @TeleOp(name = "DriveMe", group = "teleop")
-//@Disabled
+@Disabled
 public class NoThreadTeleop extends OpMode {
     private NoThreadRobot robot;
     private Stickygamepad _gamepad1;

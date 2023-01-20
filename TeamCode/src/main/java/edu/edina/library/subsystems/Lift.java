@@ -129,31 +129,31 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                     }
                 }
             }
-        } else {
-            if (robotState.ClawServoPosition == ClawServoPosition.Open) {
-                clawServo.setPosition(CLAWOPENPOSITION);
-            } else if (robotState.ClawServoPosition == ClawServoPosition.Closed) {
-                clawServo.setPosition(CLAWCLOSEDPOSITION);
-            }
-
-            if (robotState.ArmServoPosition == ArmServoPosition.Front) {
-                armServo.setPosition(ARMFRONTPOSITION);
-            } else if (robotState.ArmServoPosition == ArmServoPosition.Side) {
-                armServo.setPosition(ARMSIDEPOSITION);
-            } else if (robotState.ArmServoPosition == ArmServoPosition.Back) {
-                armServo.setPosition(ARMBACKPOSTITION);
-            }
-
-            if (!liftSwitch.getState() && !liftMotorReset) {
-                liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                liftMotorReset = true;
-            } else {
-                liftMotorReset = false;
-            }
-
-            liftMotor.setPower(liftSpeed);
         }
+
+        if (robotState.ClawServoPosition == ClawServoPosition.Open) {
+            clawServo.setPosition(CLAWOPENPOSITION);
+        } else if (robotState.ClawServoPosition == ClawServoPosition.Closed) {
+            clawServo.setPosition(CLAWCLOSEDPOSITION);
+        }
+
+        if (robotState.ArmServoPosition == ArmServoPosition.Front) {
+            armServo.setPosition(ARMFRONTPOSITION);
+        } else if (robotState.ArmServoPosition == ArmServoPosition.Side) {
+            armServo.setPosition(ARMSIDEPOSITION);
+        } else if (robotState.ArmServoPosition == ArmServoPosition.Back) {
+            armServo.setPosition(ARMBACKPOSTITION);
+        }
+
+        if (!liftSwitch.getState() && !liftMotorReset) {
+            liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            liftMotorReset = true;
+        } else {
+            liftMotorReset = false;
+        }
+
+        liftMotor.setPower(liftSpeed);
 
         robotState.LiftMotorLocation = liftMotor.getCurrentPosition();
         robotState.ClawPosition = Math.round(clawServo.getPosition() * 100);
