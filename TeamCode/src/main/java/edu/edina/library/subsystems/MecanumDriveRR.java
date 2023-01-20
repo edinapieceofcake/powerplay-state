@@ -16,8 +16,10 @@ public class MecanumDriveRR extends Subsystem{
     private double leftStickY;
     private double rightStickX;
     private boolean dPadUp;
+    private boolean dPadDown;
     private SampleMecanumDrive drive;
-    private double speedMultiplier = .75;
+    //To change the speed of the robot change the speedMultiplier variable
+    private double speedMultiplier = .4;
 
     enum Mode {
         DRIVER_CONTROL,
@@ -54,8 +56,8 @@ public class MecanumDriveRR extends Subsystem{
             // Rotation is not part of the rotated input thus must be passed in separately
             drive.setWeightedDrivePower(
                     new Pose2d(
-                            input.getX(),
-                            input.getY(),
+                            -leftStickY,
+                            -leftStickX,
                             -rightStickX
                     )
             );
@@ -71,6 +73,16 @@ public class MecanumDriveRR extends Subsystem{
         } else {
             if (!drive.isBusy()) {
                 currentMode = Mode.DRIVER_CONTROL;
+            }
+
+            if (dPadDown) {
+                if (speedMultiplier == 0.4) {
+                    speedMultiplier = 0.7;
+                }
+
+                if (speedMultiplier == 0.7) {
+                    speedMultiplier = 0.4;
+                }
             }
         }
         // Update everything. Odometry. Etc.
