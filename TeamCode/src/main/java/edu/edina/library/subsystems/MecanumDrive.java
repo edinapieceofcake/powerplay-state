@@ -43,19 +43,10 @@ public class MecanumDrive extends edu.edina.library.subsystems.Subsystem {
         }
     }
 
-    public void setDriveProperties(double leftStickX, double leftStickY, double rightStickY,
-                                   boolean lowSpeed, boolean mediumSpeed, boolean highSpeed) {
+    public void setDriveProperties(double leftStickX, double leftStickY, double rightStickY) {
         this.leftStickX = leftStickX;
         this.leftStickY = leftStickY;
         this.rightStickY = rightStickY;
-
-        if (lowSpeed) {
-            currentPower = .5;
-        } else if (mediumSpeed) {
-            currentPower = 1.0;
-        } else if (highSpeed) {
-            currentPower = 1.4;
-        }
     }
 
     public void update() {
