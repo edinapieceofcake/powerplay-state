@@ -30,6 +30,7 @@ public class RobotState {
     public int LIFTRETURNHEiGHT = 0;
     public boolean LiftSuccessfullySetup = false;
     public boolean DriveSuccessfullySetup = false;
+    public int FutureTargetPosition = 0;
 
     public RobotState() {}
 
@@ -40,6 +41,7 @@ public class RobotState {
             telemetry.addData("ArmPosition", ArmPosition);
             telemetry.addData("LiftDiff", LiftDiff);
             telemetry.addData("LiftSwitch", LiftSwitch);
+            telemetry.addData("Future Target Position", FutureTargetPosition);
         } else {
             telemetry.addData("Unable to setup motors liftMotor or setup servos armServo or latchServo", "");
         }
