@@ -14,7 +14,19 @@ public class RobotState {
     public double ArmPosition = 0.0;
     public boolean LiftSwitch = false;
     public double SpeedMultiplier = 0.0;
+    public double CLAWOPENPOSITION = 0.56;
+    public double CLAWCLOSEDPOSITION = 0.82;
+    public int CLAWOPENPOSITION100 = 56;
+    public double ARMFRONTPOSITION = 0.14;
+    public double ARMBACKPOSTITION = 0.83;
+    public double ARMSIDEPOSITION = 0.5;
 
+    public int POLEPOSITIONLOW = -1200;
+    public int POLEPOSITIONMIDDLE = -2060;
+    public int POLEPOSITIONHIGH = -2850;
+
+    public int CLAWOPENWAITTIME = 250;
+    public int LIFTRETURNHEiGHT = 0;
     public boolean LiftSuccessfullySetup = false;
     public boolean DriveSuccessfullySetup = false;
 
