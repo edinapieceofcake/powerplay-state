@@ -24,6 +24,7 @@ public class RobotState {
     public int POLEPOSITIONLOW = -1200;
     public int POLEPOSITIONMIDDLE = -2060;
     public int POLEPOSITIONHIGH = -2850;
+    public int LIFTWAITTIME = 250;
 
     public int CLAWOPENWAITTIME = 250;
     public int LIFTRETURNHEiGHT = 0;
