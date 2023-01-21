@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import java.sql.Time;
+
 import edu.edina.library.util.ClawServoPosition;
 import edu.edina.library.util.ArmServoPosition;
 import edu.edina.library.util.PoleLocation;
@@ -16,6 +18,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private static double CLAWOPENPOSITION = 0.56;
     private static double CLAWCLOSEDPOSITION = 0.82;
     private static int CLAWOPENPOSITION100 = 56;
+    private static int LIFTMOTORCURRENT100 = 100;
 
     private static double ARMFRONTPOSITION = 0.14;
     private static double ARMBACKPOSTITION = 0.83;
@@ -27,6 +30,8 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private static int POLEPOSITIONHIGH = -2850;
 
     private static int CLAWOPENWAITTIME = 250;
+
+    private static int LIFTWAITTIME = 250;
     private static int LIFTRETURNHEiGHT = 0;
 
     private DcMotorEx liftMotor;
@@ -40,6 +45,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private boolean atZeroPosition;
     private int targetPosition = 0;
     private long clawOpenStartedTime = 0;
+    private long liftMotorStartedTime = 0;
     private boolean liftMotorReset = false;
     private boolean clawOpen = false;
 
@@ -129,6 +135,8 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                     }
                 }
             }
+        } else {
+            liftMotor.setTargetPosition(this.targetPosition);
         }
 
         if (robotState.ClawServoPosition == ClawServoPosition.Open) {
@@ -153,7 +161,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             liftMotorReset = false;
         }
 
-        liftMotor.setPower(liftSpeed);
 
         robotState.LiftMotorLocation = liftMotor.getCurrentPosition();
         robotState.ClawPosition = Math.round(clawServo.getPosition() * 100);
@@ -170,14 +177,18 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                 resetState();
             }
         }
-
-        if (liftUp != 0)
-            this.liftSpeed  = liftUp;
-        else if (liftDown != 0)
-            this.liftSpeed = -liftDown;
-        else
-            this.liftSpeed = 0;
-
+        if ((System.currentTimeMillis() > (liftMotorStartedTime + LIFTWAITTIME))) {
+            liftMotorStartedTime = System.currentTimeMillis();
+            if (liftUp != 0)
+                this.targetPosition += 10;
+            else if (liftDown != 0)
+                this.targetPosition += -10;
+            else
+                this.liftSpeed = 0;
+            if (targetPosition >= 0){
+                targetPosition = 0;
+            }
+        }
         if (armFront) {
             robotState.ArmServoPosition = ArmServoPosition.Front;
         } else if (armSide) {
@@ -213,5 +224,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftMotor.setPower(0);
         clawOpenStartedTime = 0;
+        liftMotorStartedTime = 0;
     }
 }
