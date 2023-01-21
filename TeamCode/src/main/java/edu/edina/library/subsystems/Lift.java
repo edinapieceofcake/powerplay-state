@@ -18,7 +18,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private static double CLAWOPENPOSITION = 0.56;
     private static double CLAWCLOSEDPOSITION = 0.82;
     private static int CLAWOPENPOSITION100 = 56;
-    private static int LIFTMOTORCURRENT100 = 100;
 
     private static double ARMFRONTPOSITION = 0.14;
     private static double ARMBACKPOSTITION = 0.83;
