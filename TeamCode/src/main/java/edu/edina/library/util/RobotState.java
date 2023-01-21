@@ -42,6 +42,7 @@ public class RobotState {
             telemetry.addData("LiftDiff", LiftDiff);
             telemetry.addData("LiftSwitch", LiftSwitch);
             telemetry.addData("Future Target Position", FutureTargetPosition);
+            telemetry.addData("TargetPoleLocation", TargetPoleLocation);
         } else {
             telemetry.addData("Unable to setup motors liftMotor or setup servos armServo or latchServo", "");
         }

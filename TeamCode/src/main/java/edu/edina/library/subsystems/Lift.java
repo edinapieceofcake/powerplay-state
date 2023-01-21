@@ -43,7 +43,9 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
 
             liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            liftMotor.setPower(0.5);
+            liftMotor.setPower(1);
+            robotState.FutureTargetPosition = 0;
+            liftMotor.setTargetPosition(robotState.FutureTargetPosition);
             liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
@@ -81,6 +83,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                     }
                 } else if (!atZeroPosition) {
                     robotState.LiftDiff = Math.abs(liftMotor.getCurrentPosition());
+                    robotState.FutureTargetPosition = liftMotor.getTargetPosition();
 
                     if (robotState.LiftDiff < 10) {
                         resetState();
@@ -102,6 +105,8 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                     liftMotor.setPower(1);
                     runningToPosition = true;
                 } else {
+                    robotState.FutureTargetPosition = liftMotor.getTargetPosition();
+
                     if (robotState.ClawServoPosition == ClawServoPosition.Open) {
                         clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     } else if (robotState.ClawServoPosition == ClawServoPosition.Closed) {
@@ -119,6 +124,17 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             }
         } else {
             liftMotor.setTargetPosition(robotState.FutureTargetPosition);
+
+            if (!liftSwitch.getState() && !liftMotorReset) {
+                liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                liftMotor.setPower(1);
+                liftMotor.setTargetPosition(0);
+                robotState.FutureTargetPosition = 0;
+                liftMotorReset = true;
+            } else {
+                liftMotorReset = false;
+            }
         }
 
         if (robotState.ClawServoPosition == ClawServoPosition.Open) {
@@ -134,15 +150,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         } else if (robotState.ArmServoPosition == ArmServoPosition.Back) {
             armServo.setPosition(robotState.ARMBACKPOSTITION);
         }
-
-        if (!liftSwitch.getState() && !liftMotorReset) {
-            liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            liftMotorReset = true;
-        } else {
-            liftMotorReset = false;
-        }
-
 
         robotState.LiftMotorLocation = liftMotor.getCurrentPosition();
         robotState.ClawPosition = Math.round(clawServo.getPosition() * 100);
@@ -163,12 +170,9 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         //if ((System.currentTimeMillis() > (liftMotorStartedTime + robotState.LIFTWAITTIME))) {
             liftMotorStartedTime = System.currentTimeMillis();
             if (liftUp != 0)
-                robotState.FutureTargetPosition += 10;
+                robotState.FutureTargetPosition += 50;
             else if (liftDown != 0)
-                robotState.FutureTargetPosition += -10;
-            if (robotState.FutureTargetPosition >= 0){
-                robotState.FutureTargetPosition = 0;
-            }
+                robotState.FutureTargetPosition += -30;
         //}
 
         if (armFront) {
@@ -203,6 +207,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         runningToPosition = false;
         atZeroPosition = false;
         robotState.TargetPoleLocation = PoleLocation.None;
+        robotState.FutureTargetPosition = liftMotor.getTargetPosition();
         clawOpenStartedTime = 0;
         liftMotorStartedTime = 0;
     }
