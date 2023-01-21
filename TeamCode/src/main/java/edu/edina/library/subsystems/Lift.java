@@ -41,7 +41,8 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             liftSwitch.setMode(DigitalChannel.Mode.INPUT);
 
             liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor.setPower(0.5);
             liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
@@ -73,7 +74,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                 } else if (!clawOpen) {
                     if ((System.currentTimeMillis() > (clawOpenStartedTime + robotState.CLAWOPENWAITTIME)) && (Math.round(clawServo.getPosition() * 100) == robotState.CLAWOPENPOSITION100)) {
                         liftMotor.setTargetPosition(robotState.LIFTRETURNHEiGHT);
-                        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         liftMotor.setPower(1);
                         clawOpen = true;
                         atZeroPosition = false;
@@ -98,7 +98,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                     clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Closed;
                     liftMotor.setTargetPosition(targetPosition);
-                    liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     liftMotor.setPower(1);
                     runningToPosition = true;
                 } else {
@@ -203,7 +202,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         runningToPosition = false;
         atZeroPosition = false;
         robotState.TargetPoleLocation = PoleLocation.None;
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftMotor.setPower(0);
         clawOpenStartedTime = 0;
         liftMotorStartedTime = 0;
