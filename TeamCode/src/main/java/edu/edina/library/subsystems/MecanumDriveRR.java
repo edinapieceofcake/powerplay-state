@@ -40,6 +40,7 @@ public class MecanumDriveRR extends Subsystem{
         drive.setWeightedDrivePower(
                 new Pose2d(
                         // To change to Robot centric change leftSticks to ____
+                        // To change to Robot centric change leftSticks to ____
                         -leftStickY,
                         -leftStickX,
                         -rightStickX
