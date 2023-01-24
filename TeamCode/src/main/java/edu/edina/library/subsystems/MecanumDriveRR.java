@@ -16,8 +16,6 @@ public class MecanumDriveRR extends Subsystem{
     private double leftStickY;
     private double rightStickX;
     private SampleMecanumDrive drive;
-    //To change the speed of the robot change the speedMultiplier variable
-    private double speedMultiplier = .5;
     private RobotState robotState;
 
     public MecanumDriveRR(HardwareMap map, RobotState robotState){
@@ -25,7 +23,7 @@ public class MecanumDriveRR extends Subsystem{
             drive = new SampleMecanumDrive(map);
             drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             drive.setPoseEstimate(PoseStorage.currentPose);
-            robotState.SpeedMultiplier = speedMultiplier;
+            robotState.SpeedMultiplier = robotState.LowSpeedMultiplier;
             this.robotState = robotState;
             robotState.DriveSuccessfullySetup = true;
         } catch (Exception ex) {
@@ -53,18 +51,17 @@ public class MecanumDriveRR extends Subsystem{
 
     public void setDriveProperties(double leftStickX, double leftStickY, double rightStickX, boolean dPadDown){
         if (dPadDown) {
-            if (speedMultiplier == 0.5) {
-                speedMultiplier = 0.6;
+            if (robotState.SpeedMultiplier == robotState.LowSpeedMultiplier) {
+                robotState.SpeedMultiplier = robotState.HighSpeedMultiplier;
             }
 
-            if (speedMultiplier == 0.6) {
-                speedMultiplier = 0.5;
+            if (robotState.SpeedMultiplier == robotState.HighSpeedMultiplier) {
+                robotState.SpeedMultiplier = robotState.LowSpeedMultiplier;
             }
         }
 
-        robotState.SpeedMultiplier = speedMultiplier;
-        this.leftStickX = leftStickX * speedMultiplier;
-        this.leftStickY = leftStickY * speedMultiplier;
-        this.rightStickX = rightStickX * speedMultiplier;
+        this.leftStickX = leftStickX * robotState.SpeedMultiplier;
+        this.leftStickY = leftStickY * robotState.SpeedMultiplier;
+        this.rightStickX = rightStickX * robotState.SpeedMultiplier;
     }
 }

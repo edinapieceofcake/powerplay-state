@@ -13,9 +13,10 @@ public class RobotState {
     public double ClawPosition = 0.0;
     public double ArmPosition = 0.0;
     public boolean LiftSwitch = false;
+    public boolean LiftMotorReset = false;
     public double SpeedMultiplier = 0.0;
     public double CLAWOPENPOSITION = 0.56;
-    public double CLAWCLOSEDPOSITION = 0.82;
+    public double CLAWCLOSEDPOSITION = 0.83;
     public int CLAWOPENPOSITION100 = 56;
     public double ARMFRONTPOSITION = 0.14;
     public double ARMBACKPOSTITION = 0.83;
@@ -32,6 +33,9 @@ public class RobotState {
     public boolean DriveSuccessfullySetup = false;
     public int FutureTargetPosition = 0;
 
+    public double LowSpeedMultiplier = .5;
+    public double HighSpeedMultiplier = .6;
+
     public RobotState() {}
 
     public void telemetry(Telemetry telemetry) {
@@ -41,6 +45,7 @@ public class RobotState {
             telemetry.addData("ArmPosition", ArmPosition);
             telemetry.addData("LiftDiff", LiftDiff);
             telemetry.addData("LiftSwitch", LiftSwitch);
+            telemetry.addData("LiftMotorReset", LiftMotorReset);
             telemetry.addData("Future Target Position", FutureTargetPosition);
             telemetry.addData("TargetPoleLocation", TargetPoleLocation);
         } else {
@@ -50,6 +55,8 @@ public class RobotState {
         if (DriveSuccessfullySetup) {
             telemetry.addData("Drive Speed", DriveSpeed);
             telemetry.addData("Speed Multiplier", SpeedMultiplier);
+            telemetry.addData("LowSpeedMultiplier", LowSpeedMultiplier);
+            telemetry.addData("HighSpeedMultiplier", HighSpeedMultiplier);
         } else {
             telemetry.addData("edu.edina.library.subsystems.MecanumDrive: Unable to setup frontLeft, frontRight, backLeft, backRight motors", "");
         }

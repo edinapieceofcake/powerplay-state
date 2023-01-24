@@ -197,7 +197,7 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(90)))
                                 .splineToConstantHeading(new Vector2d(12, -60), Math.toRadians(90))
                                 .forward(50)
-                                .splineTo(new Vector2d(25, -10), Math.toRadians(-180))
+                                .splineTo(new Vector2d(25, -10), Math.toRadians(2))
                                 .waitSeconds(dropTime) // drop first cone
                                 .strafeTo(new Vector2d(58, -12))
                                 .waitSeconds(pickupTime) // grab second cone
@@ -235,7 +235,7 @@ public class MeepMeepTesting {
 //                .addEntity(myBot8)
 //                .addEntity(myBot9)
                 // comment this bot out if you want ot see all the other paths run faster as this bot is taking the entire 30 seconds.
-                .addEntity(myBot10)
+//                .addEntity(myBot10)
 //                .addEntity(myBot11)
                 .addEntity(myBot12)
                 .start();

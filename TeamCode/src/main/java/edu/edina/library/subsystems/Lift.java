@@ -123,18 +123,20 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                 }
             }
         } else {
-            liftMotor.setTargetPosition(robotState.FutureTargetPosition);
-
-            if (!liftSwitch.getState() && !liftMotorReset) {
-                liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                liftMotor.setPower(1);
-                liftMotor.setTargetPosition(0);
-                robotState.FutureTargetPosition = 0;
-                liftMotorReset = true;
+            if (!liftSwitch.getState()) {
+                if (!liftMotorReset) {
+                    liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    liftMotor.setPower(1);
+                    liftMotor.setTargetPosition(0);
+                    robotState.FutureTargetPosition = 0;
+                    liftMotorReset = true;
+                }
             } else {
                 liftMotorReset = false;
             }
+
+            liftMotor.setTargetPosition(robotState.FutureTargetPosition);
         }
 
         if (robotState.ClawServoPosition == ClawServoPosition.Open) {
@@ -155,6 +157,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         robotState.ClawPosition = Math.round(clawServo.getPosition() * 100);
         robotState.ArmPosition = Math.round(armServo.getPosition() * 100);
         robotState.LiftSwitch = liftSwitch.getState();
+        robotState.LiftMotorReset = liftMotorReset;
     }
 
     public void setLiftProperties(double liftUp, double liftDown, boolean armFront, boolean armSide, boolean armBack,
@@ -167,13 +170,10 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             }
         }
 
-        //if ((System.currentTimeMillis() > (liftMotorStartedTime + robotState.LIFTWAITTIME))) {
-            liftMotorStartedTime = System.currentTimeMillis();
-            if (liftUp != 0)
-                robotState.FutureTargetPosition += 50;
-            else if (liftDown != 0)
-                robotState.FutureTargetPosition += -30;
-        //}
+        if (liftUp != 0)
+            robotState.FutureTargetPosition += 50;
+        else if (liftDown != 0)
+            robotState.FutureTargetPosition += -30;
 
         if (armFront) {
             robotState.ArmServoPosition = ArmServoPosition.Front;
