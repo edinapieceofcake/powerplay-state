@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp()
-//@Disabled
+@Disabled
 public class WheelLocationClampTest extends OpMode {
     Stickygamepad _gamepad1;
     DcMotor _frontLeft;

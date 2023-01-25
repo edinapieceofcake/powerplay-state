@@ -3,61 +3,60 @@ package edu.edina.library.util;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class RobotState {
-    public CurrentOperation CurrentOperation;
-
     public DriveSpeed DriveSpeed = edu.edina.library.util.DriveSpeed.Medium;
-
-    public long SlideMotorLocation = 0;
-    public SlideMotorAction SlideMotorAction = edu.edina.library.util.SlideMotorAction.Idle;
-    public boolean AutoFoldInArm = false;
-    public boolean AutoFoldOutArm = false;
-    public boolean IntakeClampOpen;
-    public double FlipPosition = 0.45;
-    public boolean SlideSwitch = false;
 
     public long LiftDiff;
     public long LiftMotorLocation = 0;
     public ClawServoPosition ClawServoPosition = edu.edina.library.util.ClawServoPosition.Closed;
-    public ElbowServoPosition ElbowServoPosition = edu.edina.library.util.ElbowServoPosition.In;
-    public LiftFilpServoPosition LiftFilpServoPosition = edu.edina.library.util.LiftFilpServoPosition.Middle;
+    public ArmServoPosition ArmServoPosition = edu.edina.library.util.ArmServoPosition.Front;
     public PoleLocation TargetPoleLocation = edu.edina.library.util.PoleLocation.None;
     public double ClawPosition = 0.0;
-    public double ElbowPosition = 0.0;
-    public double LiftFlipPosition = 0.0;
+    public double ArmPosition = 0.0;
     public boolean LiftSwitch = false;
-    public boolean LiftReadyForCone = false;
+    public boolean LiftMotorReset = false;
+    public double SpeedMultiplier = 0.0;
+    public double CLAWOPENPOSITION = 0.56;
+    public double CLAWCLOSEDPOSITION = 0.83;
+    public int CLAWOPENPOSITION100 = 56;
+    public double ARMFRONTPOSITION = 0.14;
+    public double ARMBACKPOSTITION = 0.83;
+    public double ARMSIDEPOSITION = 0.5;
 
-    public boolean IntakeSuccessfullySetup = false;
+    public int POLEPOSITIONLOW = -1200;
+    public int POLEPOSITIONMIDDLE = -2060;
+    public int POLEPOSITIONHIGH = -2850;
+    public int LIFTWAITTIME = 250;
+
+    public int CLAWOPENWAITTIME = 250;
+    public int LIFTRETURNHEiGHT = 0;
     public boolean LiftSuccessfullySetup = false;
     public boolean DriveSuccessfullySetup = false;
+    public int FutureTargetPosition = 0;
+
+    public double LowSpeedMultiplier = .5;
+    public double HighSpeedMultiplier = .6;
 
     public RobotState() {}
 
     public void telemetry(Telemetry telemetry) {
-        if (IntakeSuccessfullySetup) {
-            telemetry.addData("Slide Position", SlideMotorLocation);
-            telemetry.addData("Folding Arm In", AutoFoldInArm);
-            telemetry.addData("IntakeClampOpen", IntakeClampOpen);
-            telemetry.addData("FlipPosition", FlipPosition);
-            telemetry.addData("SlideSwitch", SlideSwitch);
-        } else {
-            telemetry.addData("Unable to setup motors slideMotor or flipMotor or setup servos flipServo or intakeServo", "");
-        }
-
         if (LiftSuccessfullySetup) {
             telemetry.addData("Lift Position", LiftMotorLocation);
             telemetry.addData("ClawPosition", ClawPosition);
-            telemetry.addData("ElbowPosition", ElbowPosition);
-            telemetry.addData("LiftFlipPosition", LiftFlipPosition);
+            telemetry.addData("ArmPosition", ArmPosition);
             telemetry.addData("LiftDiff", LiftDiff);
             telemetry.addData("LiftSwitch", LiftSwitch);
-            telemetry.addData("LiftReadyForCone", LiftReadyForCone);
+            telemetry.addData("LiftMotorReset", LiftMotorReset);
+            telemetry.addData("Future Target Position", FutureTargetPosition);
+            telemetry.addData("TargetPoleLocation", TargetPoleLocation);
         } else {
             telemetry.addData("Unable to setup motors liftMotor or setup servos armServo or latchServo", "");
         }
 
         if (DriveSuccessfullySetup) {
             telemetry.addData("Drive Speed", DriveSpeed);
+            telemetry.addData("Speed Multiplier", SpeedMultiplier);
+            telemetry.addData("LowSpeedMultiplier", LowSpeedMultiplier);
+            telemetry.addData("HighSpeedMultiplier", HighSpeedMultiplier);
         } else {
             telemetry.addData("edu.edina.library.subsystems.MecanumDrive: Unable to setup frontLeft, frontRight, backLeft, backRight motors", "");
         }
