@@ -15,209 +15,87 @@ public class MeepMeepTesting {
         double dropTime = .7;
         double pickupTime = .9;
 
-        RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
-                .setDimensions(12, 12)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-35, -60, Math.toRadians(90)))
-                                .forward(45)
-                                .splineTo(new Vector2d(-35,-10), Math.toRadians(45))
-                                .build()
-                );
-        RoadRunnerBotEntity myBot2 = new DefaultBotBuilder(meepMeep)
-                .setDimensions(12, 12)
-                .setColorScheme(new ColorSchemeBlueDark())
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-35, -10, Math.toRadians(45)))
-                                .back(10)
-                                .splineTo(new Vector2d(-58,-10), Math.toRadians(180))
-                                .build()
-                );
-        RoadRunnerBotEntity myBot3 = new DefaultBotBuilder(meepMeep)
-                .setDimensions(12, 12)
-                .setColorScheme(new ColorSchemeBlueLight())
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-58, -10, Math.toRadians(0)))
-                                .forward(1)
-                                .splineTo(new Vector2d(-35,-10), Math.toRadians(45))
-                                .build()
-                );
-
-        RoadRunnerBotEntity myBot4 = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setDimensions(12, 12)
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-35, 60, Math.toRadians(-90)))
-                                .forward(25)
-                                .splineTo(new Vector2d(-25,10), Math.toRadians(0))
-                                .build()
-                );
-        RoadRunnerBotEntity myBot5 = new DefaultBotBuilder(meepMeep)
-                .setColorScheme(new ColorSchemeBlueDark())
-                .setDimensions(12, 12)
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-25, 10, Math.toRadians(0)))
-                                .strafeTo(new Vector2d(-58,12))
-                                .build()
-                );
-        RoadRunnerBotEntity myBot6 = new DefaultBotBuilder(meepMeep)
-                .setDimensions(12, 12)
-                .setColorScheme(new ColorSchemeBlueLight())
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-58, 12, Math.toRadians(0)))
-                                .strafeTo(new Vector2d(-25,10))
-                                .build()
-                );
-
-        RoadRunnerBotEntity myBot7 = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setDimensions(12, 12)
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(35, 60, Math.toRadians(-90)))
-                                .forward(30)
-                                .splineTo(new Vector2d(25,10), Math.toRadians(0))
-                                .build()
-                );
-
-        RoadRunnerBotEntity myBot8 = new DefaultBotBuilder(meepMeep)
+        // this bot does the entire path for the right side red. the drop time is .8 second and one second to pickup
+        RoadRunnerBotEntity myBotLeft = new DefaultBotBuilder(meepMeep)
                 .setColorScheme(new ColorSchemeBlueDark())
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setDimensions(12, 12)
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(25, 10, Math.toRadians(0)))
-                                .strafeTo(new Vector2d(58,12))
-                                .build()
-                );
-
-        RoadRunnerBotEntity myBot9 = new DefaultBotBuilder(meepMeep)
-                .setColorScheme(new ColorSchemeBlueDark())
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setDimensions(12, 12)
-                .setConstraints(55, 50, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(58, 12, Math.toRadians(0)))
-                                .strafeTo(new Vector2d(25,10))
-                                .build()
-                );
-
-        RoadRunnerBotEntity myBot10 = new DefaultBotBuilder(meepMeep)
-                .setColorScheme(new ColorSchemeBlueDark())
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setDimensions(13, 13)
-                .setConstraints(55, 45, Math.toRadians(180), Math.toRadians(180), 12)
+                .setDimensions(9, 9)
+                .setConstraints(35, 40, Math.toRadians(180), Math.toRadians(90), 11)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-35, -65, Math.toRadians(90)))
-                                .forward(30)
-                                .splineTo(new Vector2d(-25,-10), Math.toRadians(360))
+                                .splineToConstantHeading(new Vector2d(-59, -57), Math.toRadians(90))
+                                .forward(40)
+                                .splineTo(new Vector2d(-22, -8), Math.toRadians(0))
                                 .waitSeconds(dropTime) // drop first cone
                                 .strafeTo(new Vector2d(-58, -12))
                                 .waitSeconds(pickupTime) // grab second cone
-                                .strafeTo(new Vector2d(-25, -10))
+                                .strafeTo(new Vector2d(-22, -8))
                                 .waitSeconds(dropTime) // drop second cone
                                 .strafeTo(new Vector2d(-58, -12))
                                 .waitSeconds(pickupTime) // grab third cone
-                                .strafeTo(new Vector2d(-25, -10))
+                                .strafeTo(new Vector2d(-22, -8))
                                 .waitSeconds(dropTime) // drop third cone
                                 .strafeTo(new Vector2d(-58, -12))
                                 .waitSeconds(pickupTime) // grab fourth cone
-                                .strafeTo(new Vector2d(-25, -10))
+                                .strafeTo(new Vector2d(-22, -8))
                                 .waitSeconds(dropTime) // drop fourth cone
                                 .strafeTo(new Vector2d(-58, -12))
                                 .waitSeconds(pickupTime) // grab fifth cone
-                                .strafeTo(new Vector2d(-25, -10))
+                                .strafeTo(new Vector2d(-22, -8))
                                 .waitSeconds(dropTime) // drop fifth cone
                                 .strafeTo(new Vector2d(-58, -12))
                                 .waitSeconds(pickupTime) // grab sixth cone
-                                .strafeTo(new Vector2d(-25, -10))
+                                .strafeTo(new Vector2d(-22, -8))
                                 .waitSeconds(dropTime) // drop sixth cone
                                 .strafeTo(new Vector2d(-50, -12)) // park
                                 .build()
                 );
 
-        // this bot does the entire path for the right side red. the drop time is .8 second and one second to pickup
-        RoadRunnerBotEntity myBot11 = new DefaultBotBuilder(meepMeep)
+        RoadRunnerBotEntity myBotLeft2 = new DefaultBotBuilder(meepMeep)
                 .setColorScheme(new ColorSchemeBlueDark())
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setDimensions(13, 13)
-                .setConstraints(55, 45, Math.toRadians(180), Math.toRadians(180), 12)
+                .setDimensions(9, 9)
+                .setConstraints(35, 40, Math.toRadians(180), Math.toRadians(90), 11)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(35, -60, Math.toRadians(90)))
-                                .forward(30)
-                                .splineTo(new Vector2d(-25,-10), Math.toRadians(-180))
-                                .splineTo(new Vector2d(25,-10), Math.toRadians(180))
+                        drive.trajectorySequenceBuilder(new Pose2d(-35, -65, Math.toRadians(90)))
+                                .splineToConstantHeading(new Vector2d(-11, -57), Math.toRadians(90))
+                                .forward(40)
+                                .splineTo(new Vector2d(-22, -8), Math.toRadians(0))
                                 .waitSeconds(dropTime) // drop first cone
                                 .strafeTo(new Vector2d(-58, -12))
-                                .strafeTo(new Vector2d(58, -12))
-                                .waitSeconds(pickupTime) // grab second cone
-                                .strafeTo(new Vector2d(-25, -10))
-                                .strafeTo(new Vector2d(25, -10))
-                                .waitSeconds(dropTime) // drop second cone
-                                .strafeTo(new Vector2d(-58, -12))
-                                .strafeTo(new Vector2d(58, -12))
-                                .waitSeconds(pickupTime) // grab third cone
-                                .strafeTo(new Vector2d(-25, -10))
-                                .strafeTo(new Vector2d(25, -10))
-                                .waitSeconds(dropTime) // drop third cone
-                                .strafeTo(new Vector2d(-58, -12))
-                                .strafeTo(new Vector2d(58, -12))
-                                .waitSeconds(pickupTime) // grab fourth cone
-                                .strafeTo(new Vector2d(-25, -10))
-                                .strafeTo(new Vector2d(25, -10))
-                                .waitSeconds(dropTime) // drop fourth cone
-                                .strafeTo(new Vector2d(-58, -12))
-                                .strafeTo(new Vector2d(58, -12))
-                                .waitSeconds(pickupTime) // grab fifth cone
-                                .strafeTo(new Vector2d(-25, -10))
-                                .strafeTo(new Vector2d(25, -10))
-                                .waitSeconds(dropTime) // drop fifth cone
-                                .strafeTo(new Vector2d(-58, -12))
-                                .strafeTo(new Vector2d(58, -12))
-                                .waitSeconds(pickupTime) // grab sixth cone
-                                .strafeTo(new Vector2d(-25, -10))
-                                .strafeTo(new Vector2d(25, -10))
-                                .waitSeconds(dropTime) // drop sixth cone
-                                .strafeTo(new Vector2d(-50, -12)) // park
                                 .build()
                 );
 
-        RoadRunnerBotEntity myBot12 = new DefaultBotBuilder(meepMeep)
+        RoadRunnerBotEntity myBotRight = new DefaultBotBuilder(meepMeep)
                 .setColorScheme(new ColorSchemeBlueDark())
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setDimensions(13, 13)
-                .setConstraints(55, 45, Math.toRadians(180), Math.toRadians(180), 12)
+                .setDimensions(9, 9)
+                .setConstraints(35, 30, Math.toRadians(180), Math.toRadians(90), 11)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(90)))
-                                .splineToConstantHeading(new Vector2d(12, -60), Math.toRadians(90))
-                                .forward(50)
-                                .splineTo(new Vector2d(25, -10), Math.toRadians(2))
+                                .splineToConstantHeading(new Vector2d(11, -57), Math.toRadians(90))
+                                .forward(40)
+                                .splineTo(new Vector2d(22, -8), Math.toRadians(0))
                                 .waitSeconds(dropTime) // drop first cone
                                 .strafeTo(new Vector2d(58, -12))
                                 .waitSeconds(pickupTime) // grab second cone
-                                .strafeTo(new Vector2d(25, -10))
+                                .strafeTo(new Vector2d(22, -8))
                                 .waitSeconds(dropTime) // drop second cone
                                 .strafeTo(new Vector2d(58, -12))
                                 .waitSeconds(pickupTime) // grab third cone
-                                .strafeTo(new Vector2d(25, -10))
+                                .strafeTo(new Vector2d(22, -8))
                                 .waitSeconds(dropTime) // drop third cone
                                 .strafeTo(new Vector2d(58, -12))
                                 .waitSeconds(pickupTime) // grab fourth cone
-                                .strafeTo(new Vector2d(25, -10))
+                                .strafeTo(new Vector2d(22, -8))
                                 .waitSeconds(dropTime) // drop fourth cone
                                 .strafeTo(new Vector2d(58, -12))
                                 .waitSeconds(pickupTime) // grab fifth cone
-                                .strafeTo(new Vector2d(25, -10))
+                                .strafeTo(new Vector2d(22, -8))
                                 .waitSeconds(dropTime) // drop fifth cone
                                 .strafeTo(new Vector2d(58, -12))
                                 .waitSeconds(pickupTime) // grab sixth cone
-                                .strafeTo(new Vector2d(25, -10))
+                                .strafeTo(new Vector2d(22, -8))
                                 .waitSeconds(dropTime) // drop sixth cone
                                 .strafeTo(new Vector2d(50, -12)) // park
                                 .build());
@@ -225,19 +103,9 @@ public class MeepMeepTesting {
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-//                .addEntity(myBot)
-//                .addEntity(myBot2)
-//                .addEntity(myBot3)
-//                .addEntity(myBot4)
-//                .addEntity(myBot5)
-//                .addEntity(myBot6)
-//                .addEntity(myBot7)
-//                .addEntity(myBot8)
-//                .addEntity(myBot9)
-                // comment this bot out if you want ot see all the other paths run faster as this bot is taking the entire 30 seconds.
-//                .addEntity(myBot10)
-//                .addEntity(myBot11)
-                .addEntity(myBot12)
+                .addEntity(myBotLeft)
+                //.addEntity(myBotLeft2)
+                .addEntity(myBotRight)
                 .start();
     }
 }

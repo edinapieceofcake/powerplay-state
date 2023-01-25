@@ -4,19 +4,15 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import edu.edina.library.util.ArmServoPosition;
 import edu.edina.library.util.ClawServoPosition;
@@ -26,7 +22,7 @@ import edu.edina.library.vision.AprilTagDetectionPipeline;
 @Autonomous
 @Config
 //@Disabled
-public class RightSide extends LinearOpMode {
+public class LeftSide extends LinearOpMode {
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -81,14 +77,14 @@ public class RightSide extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(50);
 */
-        double dropoffX1 = 22;
-        double dropoffX2 = 25;
-        double dropoffX3 = 25;
-        double dropoffX4 = 25;
-        double dropoffX5 = 25;
-        double dropoffX6 = 25;
+        double dropoffX1 = -22;
+        double dropoffX2 = -25;
+        double dropoffX3 = -25;
+        double dropoffX4 = -25;
+        double dropoffX5 = -25;
+        double dropoffX6 = -25;
         double dropoffY = -8;
-        double pickupX = 58;
+        double pickupX = -58;
 
         robotState = new RobotState();
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
@@ -112,9 +108,9 @@ public class RightSide extends LinearOpMode {
         robotState.ArmServoPosition = ArmServoPosition.Front;
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(new Pose2d(35, -65, Math.toRadians(90)));
-        TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(90)))
-                .splineToConstantHeading(new Vector2d(10, -57), Math.toRadians(90))
+        drive.setPoseEstimate(new Pose2d(-35, -65, Math.toRadians(90)));
+        TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(-35, -65, Math.toRadians(90)))
+                .splineToConstantHeading(new Vector2d(-59, -57), Math.toRadians(90))
                 .addTemporalMarker(2, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH); })
                 .forward(40)
                 .splineTo(new Vector2d(dropoffX1, dropoffY), Math.toRadians(7))
