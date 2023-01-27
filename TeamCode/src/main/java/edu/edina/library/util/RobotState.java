@@ -5,6 +5,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class RobotState {
     public DriveSpeed DriveSpeed = edu.edina.library.util.DriveSpeed.Medium;
 
+    // lateral distance 9.3125
+    // offset 2.56 towards the front
     public long LiftDiff;
     public long LiftMotorLocation = 0;
     public ClawServoPosition ClawServoPosition = edu.edina.library.util.ClawServoPosition.Closed;
@@ -22,9 +24,9 @@ public class RobotState {
     public double ARMBACKPOSTITION = 0.83;
     public double ARMSIDEPOSITION = 0.5;
 
-    public int POLEPOSITIONLOW = -1200;
-    public int POLEPOSITIONMIDDLE = -2060;
-    public int POLEPOSITIONHIGH = -2850;
+    public int POLEPOSITIONLOW = -465;
+    public int POLEPOSITIONMIDDLE = -805;
+    public int POLEPOSITIONHIGH = -1110;
     public int LIFTWAITTIME = 250;
 
     public int CLAWOPENWAITTIME = 250;
@@ -35,6 +37,9 @@ public class RobotState {
 
     public double LowSpeedMultiplier = .5;
     public double HighSpeedMultiplier = .6;
+
+    public double LiftUpSpeed = .9;
+    public double LiftDownSpeed = .5;
 
     public RobotState() {}
 
@@ -48,6 +53,8 @@ public class RobotState {
             telemetry.addData("LiftMotorReset", LiftMotorReset);
             telemetry.addData("Future Target Position", FutureTargetPosition);
             telemetry.addData("TargetPoleLocation", TargetPoleLocation);
+            telemetry.addData("LiftUpSpeed", LiftUpSpeed);
+            telemetry.addData("LiftDownSpeed", LiftDownSpeed);
         } else {
             telemetry.addData("Unable to setup motors liftMotor or setup servos armServo or latchServo", "");
         }
