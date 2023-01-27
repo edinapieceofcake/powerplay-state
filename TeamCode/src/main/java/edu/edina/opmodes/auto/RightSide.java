@@ -115,7 +115,7 @@ public class RightSide extends LinearOpMode {
         drive.setPoseEstimate(new Pose2d(35, -65, Math.toRadians(90)));
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(90)))
                 .splineToConstantHeading(new Vector2d(10, -57), Math.toRadians(90))
-                .addTemporalMarker(2, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH); })
+                //.addTemporalMarker(2, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH); })
                 .forward(40)
                 .splineTo(new Vector2d(dropoffX1, dropoffY), Math.toRadians(7))
                 /*
@@ -147,16 +147,19 @@ public class RightSide extends LinearOpMode {
 
         waitForStart();
 
-        liftMotor.setTargetPosition(-200);
-        liftMotor.setPower(1);
+        liftMotor.setTargetPosition(-50);
+        liftMotor.setPower(.5);
         drive.followTrajectorySequence(trajectory);
+
+        liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH);
+
+        while (liftMotor.isBusy())
+            idle();
 
         armServo.setPosition(robotState.ARMSIDEPOSITION);
         robotState.ArmServoPosition = ArmServoPosition.Side;
 
         sleep(750);
-
-        liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH + 100);
 
         clawServo.setPosition(robotState.CLAWOPENPOSITION);
         robotState.ClawServoPosition = ClawServoPosition.Open;
