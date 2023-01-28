@@ -25,8 +25,8 @@ import edu.edina.library.vision.AprilTagDetectionPipeline;
 
 @Autonomous
 @Config
-//@Disabled
-public class RightSide extends LinearOpMode {
+@Disabled
+public class RightSideHigh extends LinearOpMode {
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -115,7 +115,7 @@ public class RightSide extends LinearOpMode {
         drive.setPoseEstimate(new Pose2d(35, -65, Math.toRadians(90)));
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(90)))
                 .splineToConstantHeading(new Vector2d(10, -57), Math.toRadians(90))
-                .addTemporalMarker(2, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH); })
+                //.addTemporalMarker(2, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH); })
                 .forward(40)
                 .splineTo(new Vector2d(dropoffX1, dropoffY), Math.toRadians(7))
                 /*
@@ -147,21 +147,26 @@ public class RightSide extends LinearOpMode {
 
         waitForStart();
 
-        liftMotor.setTargetPosition(-200);
+        liftMotor.setTargetPosition(-50);
         liftMotor.setPower(1);
         drive.followTrajectorySequence(trajectory);
 
-        armServo.setPosition(robotState.ARMSIDEPOSITION);
+        liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH);
+
+        while (liftMotor.getCurrentPosition() - robotState.POLEPOSITIONHIGH > 10)
+            idle();
+
+        armServo.setPosition(robotState.ARMSIDEPOSITION - .03);
         robotState.ArmServoPosition = ArmServoPosition.Side;
 
-        sleep(750);
+        sleep(400);
 
-        liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH + 100);
+        // liftMotor.setTargetPosition(robotState.POLEPOSITIONHIGH + 100);
 
         clawServo.setPosition(robotState.CLAWOPENPOSITION);
         robotState.ClawServoPosition = ClawServoPosition.Open;
 
-        sleep (750);
+        sleep (400);
 
         armServo.setPosition(robotState.ARMFRONTPOSITION);
         robotState.ArmServoPosition = ArmServoPosition.Front;
