@@ -121,12 +121,29 @@ public class MeepMeepTesting {
                         drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(-180)))
                                 .strafeTo(new Vector2d(33, -23))
                                 //.strafeRight(42)
-                                .waitSeconds(.2)
-                                .strafeTo(new Vector2d(43, -8))
-//                                .splineTo(new Vector2d(45, -8), Math.toRadians(-180))
+                                //.waitSeconds(.2)
+//                                .strafeTo(new Vector2d(43, -8))
+                                .splineToConstantHeading(new Vector2d(45, -8), Math.toRadians(-180))
                                 .back(10)
-                                .forward(10)
-                                .splineToConstantHeading(new Vector2d(33, -23), Math.toRadians(-180))
+//                                .forward(10)
+//                                .splineToConstantHeading(new Vector2d(33, -23), Math.toRadians(-180))
+                                .build());
+
+        RoadRunnerBotEntity myBotRight4 = new DefaultBotBuilder(meepMeep)
+                .setColorScheme(new ColorSchemeBlueDark())
+                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                .setDimensions(9, 9)
+                .setConstraints(35, 30, Math.toRadians(180), Math.toRadians(90), 11)
+                .followTrajectorySequence(drive ->
+                        drive.trajectorySequenceBuilder(new Pose2d(33, -23, Math.toRadians(-180)))
+//                                .strafeTo(new Vector2d(33, -23))
+                                //.strafeRight(42)
+                                //.waitSeconds(.2)
+//                                .strafeTo(new Vector2d(43, -8))
+                                .splineToConstantHeading(new Vector2d(45, -8), Math.toRadians(0))
+                                .back(10)
+//                                .forward(10)
+//                                .splineToConstantHeading(new Vector2d(33, -23), Math.toRadians(-180))
                                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)
@@ -134,7 +151,7 @@ public class MeepMeepTesting {
                 .setBackgroundAlpha(0.95f)
                 //.addEntity(myBotLeft)
                 //.addEntity(myBotLeft2)
-                .addEntity(myBotRight3)
+                .addEntity(myBotRight4)
                 .start();
     }
 }

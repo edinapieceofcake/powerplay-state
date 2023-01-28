@@ -109,7 +109,9 @@ public class RightSideLow extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(new Pose2d(35, -65, Math.toRadians(-180)));
-        TrajectorySequence start = drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(-180)))
+        // cone one
+        TrajectorySequence start = drive.trajectorySequenceBuilder(new Pose2d(33, -65, Math.toRadians(-180)))
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONLOW);})
                 .addTemporalMarker(1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 25); })
                 .strafeTo(new Vector2d(32, -23))
                 .build();
@@ -119,6 +121,7 @@ public class RightSideLow extends LinearOpMode {
                 .back(25)
                 .build();
 
+        // cone two
         TrajectorySequence backToDropOff1 = drive.trajectorySequenceBuilder(backToPickup1.end())
 //                .forward(10)
 //                .splineToConstantHeading(new Vector2d(34, -23), Math.toRadians(-180))
@@ -137,12 +140,13 @@ public class RightSideLow extends LinearOpMode {
                 .back(25)
                 .build();
 
+        // cone three
         TrajectorySequence backToDropOff2 = drive.trajectorySequenceBuilder(backToPickup2.end())
                 .forward(10)
-                .splineToConstantHeading(new Vector2d(34, -26), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(33, -26), Math.toRadians(-180))
 //                        .forward(23)
 //                        .strafeLeft(15)
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 25);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 15);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -152,9 +156,10 @@ public class RightSideLow extends LinearOpMode {
 
         TrajectorySequence backToPickup3 = drive.trajectorySequenceBuilder(backToDropOff2.end())
                 .strafeRight(14)
-                .back(26)
+                .back(25)
                 .build();
 
+        // cone foue
         TrajectorySequence backToDropOff3 = drive.trajectorySequenceBuilder(backToPickup3.end())
                 .forward(10)
                 .splineToConstantHeading(new Vector2d(36, -28), Math.toRadians(-180))
@@ -205,7 +210,7 @@ public class RightSideLow extends LinearOpMode {
 
             sleep(400);
 
-            liftMotor.setTargetPosition(0);
+            liftMotor.setTargetPosition(-170);
 
             //drive.setPoseEstimate(new Pose2d(32, -23, Math.toRadians(-180)));
 
@@ -228,7 +233,7 @@ public class RightSideLow extends LinearOpMode {
 
             sleep(400);
 
-            liftMotor.setTargetPosition(0);
+            liftMotor.setTargetPosition(-128);
 
             drive.followTrajectorySequence(backToPickup2);
 
@@ -249,7 +254,7 @@ public class RightSideLow extends LinearOpMode {
 
             sleep(400);
 
-            liftMotor.setTargetPosition(0);
+            liftMotor.setTargetPosition(-86);
 
             drive.followTrajectorySequence(backToPickup3);
 
@@ -265,7 +270,7 @@ public class RightSideLow extends LinearOpMode {
 
             sleep(300);
 
-            liftMotor.setTargetPosition(0);
+            liftMotor.setTargetPosition(0);// -53
 
 
             drive.followTrajectorySequence(backToPickup4);
