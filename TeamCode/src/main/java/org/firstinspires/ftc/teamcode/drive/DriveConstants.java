@@ -33,7 +33,7 @@ public class DriveConstants {
      * If using the built-in motor velocity PID, update MOTOR_VELO_PID with the tuned coefficients
      * from DriveVelocityPIDTuner.
      */
-    public static final boolean RUN_USING_ENCODER = false;
+    public static final boolean RUN_USING_ENCODER = true;
 //    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(30, 0, 5,
 //            15.5);
 //    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(25, 0, 4,
@@ -45,9 +45,10 @@ public class DriveConstants {
     //        15.777284943696856);
             //getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
             // 11.754450473072957
-public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(25, 0, 5,
+//public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(25, 0, 5,
 //            14.480479361359741);
-        16.3);
+//        16.3);
+    public static PIDFCoefficients MOTOR_VELO_PID = null;
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -61,7 +62,8 @@ public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(25, 0, 5,
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
     // public static double TRACK_WIDTH = 10.15; // 11.0; //11.7; //4.5;// 9.05; // in
     // public static double TRACK_WIDTH = 11.0; //11.7; //4.5;// 9.05; // in
-    public static double TRACK_WIDTH = 13.47; //11.7; //4.5;// 9.05; // in
+    // public static double TRACK_WIDTH = 9.5; //11.7; //4.5;// 9.05; // in
+    public static double TRACK_WIDTH = 10.2;
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -70,8 +72,8 @@ public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(25, 0, 5,
      * empirically tuned.
      */
     public static double kV = 0.014016;//1.0 / rpmToVelocity(MAX_RPM);
-    public static double kA = 0.002;
-    public static double kStatic = 0.01;
+    public static double kA = 0.0025;
+    public static double kStatic = 0.02;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -102,9 +104,9 @@ public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(25, 0, 5,
 
      */
     public static double MAX_VEL = 40; //73.17330064499293;
-    public static double MAX_ACCEL = 30; //73.17330064499293;
-    public static double MAX_ANG_VEL = Math.toRadians(180); //Math.toRadians(349.376775);
-    public static double MAX_ANG_ACCEL = Math.toRadians(90); //Math.toRadians(349.376775);
+    public static double MAX_ACCEL = 15; //73.17330064499293;
+    public static double MAX_ANG_VEL = Math.toRadians(360); //Math.toRadians(349.376775);
+    public static double MAX_ANG_ACCEL = Math.toRadians(360); //Math.toRadians(349.376775);
 
 
     public static double encoderTicksToInches(double ticks) {
