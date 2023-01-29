@@ -31,22 +31,27 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static double WHEEL_RADIUS = 1.37795276 / 2; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
-    public static double LATERAL_DISTANCE = 9.5; // in; distance between the left and right wheels
+    //9.42, 8.49
+    public static double LATERAL_DISTANCE = 9.43; // in; distance between the left and right wheels
     //public static double LATERAL_DISTANCE = 9.3125; // in; distance between the left and right wheels
     //public static double LATERAL_DISTANCE = 10.4; // in; distance between the left and right wheels
-    public static double FORWARD_OFFSET = -2.17; // in; offset of the lateral wheel
+    //public static double FORWARD_OFFSET = 2.17; // in; offset of the lateral wheel
     //public static double FORWARD_OFFSET = 2.56; // in; offset of the lateral wheel
+    public static double FORWARD_OFFSET = 2.17; // in; offset of the lateral wheel
+    //public static double FORWARD_OFFSET = 5.0; // in; offset of the lateral wheel
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
-    public static double X_MULTIPLIER = 1.021; // Multiplier in the X direction
-    public static double Y_MULTIPLIER = 1.035; // Multiplier in the Y direction
+    //public static double X_MULTIPLIER = 1.021; // Multiplier in the X direction
+    //public static double Y_MULTIPLIER = 1.035; // Multiplier in the Y direction
+    public static double X_MULTIPLIER = 1.020; // Multiplier in the X direction
+    public static double Y_MULTIPLIER = 1.031; // Multiplier in the Y direction
 
     // .866
     public StandardTrackingWheelLocalizer(HardwareMap hardwareMap) {
         super(Arrays.asList(
                 new Pose2d(-.866, LATERAL_DISTANCE / 2, 0), // left
                 new Pose2d(-.866, -LATERAL_DISTANCE / 2, 0), // right
-                new Pose2d(FORWARD_OFFSET, 0, Math.toRadians(90)) // front
+                new Pose2d(FORWARD_OFFSET, .5, Math.toRadians(90)) // front
         ));
 
         leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "leftEncoder"));

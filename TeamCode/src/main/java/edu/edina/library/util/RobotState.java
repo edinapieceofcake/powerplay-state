@@ -21,7 +21,7 @@ public class RobotState {
     public double CLAWCLOSEDPOSITION = 0.83;
     public int CLAWOPENPOSITION100 = 56;
     public double ARMFRONTPOSITION = 0.14;
-    public double ARMBACKPOSTITION = 0.83;
+    public double ARMBACKPOSITION = 0.83;
     public double ARMSIDEPOSITION = 0.5;
 
     public int POLEPOSITIONLOW = -465;
@@ -34,6 +34,8 @@ public class RobotState {
     public boolean LiftSuccessfullySetup = false;
     public boolean DriveSuccessfullySetup = false;
     public int FutureTargetPosition = 0;
+
+    public int POLEPOSITIONFIVE = -200;
 
     public double LowSpeedMultiplier = .5;
     public double HighSpeedMultiplier = .6;

@@ -118,6 +118,7 @@ public class RightSideLow extends LinearOpMode {
 
         TrajectorySequence backToPickup1 = drive.trajectorySequenceBuilder(start.end())
                 .strafeRight(15)
+                .turn(Math.toRadians(3))
                 .back(25)
                 .build();
 
