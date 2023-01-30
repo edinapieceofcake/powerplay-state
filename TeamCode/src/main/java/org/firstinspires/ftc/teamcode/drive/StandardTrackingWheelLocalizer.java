@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -7,6 +9,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.localization.ThreeTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.RobotLog;
+
 import org.firstinspires.ftc.teamcode.util.Encoder;
 
 import java.util.Arrays;
@@ -49,6 +53,9 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public static double X_MULTIPLIER = 1.020; // Multiplier in the X direction
     public static double Y_MULTIPLIER = 1.020; // Multiplier in the Y direction
 
+    private int previousLeft = 0;
+    private int previousRight = 0;
+    private int previousFront = 0;
     // .866
     public StandardTrackingWheelLocalizer(HardwareMap hardwareMap) {
         super(Arrays.asList(
@@ -73,6 +80,22 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
+        if ((previousLeft != leftEncoder.getCurrentPosition()) ||
+            (previousFront != frontEncoder.getCurrentPosition()) ||
+            (previousRight != rightEncoder.getCurrentPosition())
+        ) {
+            Log.d("getWheelPositions", String.format("%d, %d, %d", leftEncoder.getCurrentPosition(),
+                    rightEncoder.getCurrentPosition(),
+                    frontEncoder.getCurrentPosition()));
+
+            previousRight = rightEncoder.getCurrentPosition();
+            previousFront = frontEncoder.getCurrentPosition();
+            previousLeft = leftEncoder.getCurrentPosition();
+        }
+//        RobotLog.dd("getWheelPositions, ", "left, %d", leftEncoder.getCurrentPosition());
+//        RobotLog.dd("getWheelPositions, ", "right, %d", rightEncoder.getCurrentPosition());
+//        RobotLog.dd("getWheelPositions, ", "front, %d", frontEncoder.getCurrentPosition());
+
         return Arrays.asList(
                 encoderTicksToInches(leftEncoder.getCurrentPosition()) * X_MULTIPLIER,
                 encoderTicksToInches(rightEncoder.getCurrentPosition()) * X_MULTIPLIER,

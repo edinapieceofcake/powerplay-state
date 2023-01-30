@@ -55,9 +55,6 @@ public class StrafeTest extends LinearOpMode {
         if (isStopRequested()) return;
 
         drive.followTrajectory(trajectory);
-        drive.followTrajectory(trajectory1);
-        drive.followTrajectory(trajectory);
-
 
         while (!isStopRequested() && opModeIsActive()) {
             Pose2d poseEstimate = drive.getPoseEstimate();
