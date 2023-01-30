@@ -146,12 +146,25 @@ public class MeepMeepTesting {
 //                                .splineToConstantHeading(new Vector2d(33, -23), Math.toRadians(-180))
                                 .build());
 
+        RoadRunnerBotEntity myBotRight5 = new DefaultBotBuilder(meepMeep)
+                .setColorScheme(new ColorSchemeBlueDark())
+                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                .setDimensions(9, 9)
+                .setConstraints(35, 30, Math.toRadians(180), Math.toRadians(90), 11)
+                .followTrajectorySequence(drive ->
+                        drive.trajectorySequenceBuilder(new Pose2d(33, -65, Math.toRadians(-180)))
+                                .strafeTo(new Vector2d(32, -23))
+                                .strafeRight(15)
+                                .back(25)
+                                .strafeTo(new Vector2d(30, -10))
+                                .build());
+
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 //.addEntity(myBotLeft)
                 //.addEntity(myBotLeft2)
-                .addEntity(myBotRight4)
+                .addEntity(myBotRight5)
                 .start();
     }
 }
