@@ -24,7 +24,7 @@ import edu.edina.library.vision.AprilTagDetectionPipeline;
 @Autonomous
 @Config
 //@Disabled
-public class RightSideLow extends LinearOpMode {
+public class RightSideMedium extends LinearOpMode {
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
