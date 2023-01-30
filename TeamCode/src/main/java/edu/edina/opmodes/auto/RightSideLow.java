@@ -125,6 +125,11 @@ public class RightSideLow extends LinearOpMode {
         TrajectorySequence backToPickup1 = drive.trajectorySequenceBuilder(start.end())
                 .strafeRight(15)
                 .back(25)
+                .addTemporalMarker(1.0, () -> {
+                    liftMotor.setTargetPosition(-170);
+                    armServo.setPosition(robotState.ARMBACKPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Back;
+                })
                 .addTemporalMarker(3.2, () -> {
                     clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Closed;
@@ -147,6 +152,11 @@ public class RightSideLow extends LinearOpMode {
 
         TrajectorySequence backToPickup2 = drive.trajectorySequenceBuilder(backToDropOff1.end())
                 .strafeTo(new Vector2d(57, -8))
+                .addTemporalMarker(1.0, () -> {
+                    liftMotor.setTargetPosition(-120);
+                    armServo.setPosition(robotState.ARMBACKPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Back;
+                })
                 .addTemporalMarker(2, () -> {
                     clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Closed;
@@ -169,6 +179,11 @@ public class RightSideLow extends LinearOpMode {
 
         TrajectorySequence backToPickup3 = drive.trajectorySequenceBuilder(backToDropOff2.end())
                 .strafeTo(new Vector2d(57, -8))
+                .addTemporalMarker(1.0, () -> {
+                    liftMotor.setTargetPosition(-80);
+                    armServo.setPosition(robotState.ARMBACKPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Back;
+                })
                 .addTemporalMarker(2, () -> {
                     clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Closed;
@@ -177,18 +192,75 @@ public class RightSideLow extends LinearOpMode {
 
         // cone foue
         TrajectorySequence backToDropOff3 = drive.trajectorySequenceBuilder(backToPickup3.end())
-                .forward(10)
-                .splineToConstantHeading(new Vector2d(36, -28), Math.toRadians(-180))
+                .strafeTo(new Vector2d(23, -12))
                 .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE);})
                 .addTemporalMarker(.5, () -> {
-                    armServo.setPosition(robotState.ARMFRONTPOSITION);
-                    robotState.ArmServoPosition = ArmServoPosition.Front;
+                    armServo.setPosition(robotState.ARMSIDEPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Side;
+                } )
+                .addTemporalMarker(2, () -> {
+                    clawServo.setPosition(robotState.CLAWOPENPOSITION);
+                    robotState.ClawServoPosition = ClawServoPosition.Open;
                 } )
                 .build();
 
         TrajectorySequence backToPickup4 = drive.trajectorySequenceBuilder(backToDropOff3.end())
-                .strafeRight(15)
-                .back(25)
+                .strafeTo(new Vector2d(57, -8))
+                .addTemporalMarker(1.0, () -> {
+                    liftMotor.setTargetPosition(-50);
+                    armServo.setPosition(robotState.ARMBACKPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Back;
+                })
+                .addTemporalMarker(2, () -> {
+                    clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
+                    robotState.ClawServoPosition = ClawServoPosition.Closed;
+                } )
+                .build();
+
+        TrajectorySequence backToDropOff4 = drive.trajectorySequenceBuilder(backToPickup4.end())
+                .strafeTo(new Vector2d(23, -12))
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE);})
+                .addTemporalMarker(.5, () -> {
+                    armServo.setPosition(robotState.ARMSIDEPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Side;
+                } )
+                .addTemporalMarker(2, () -> {
+                    clawServo.setPosition(robotState.CLAWOPENPOSITION);
+                    robotState.ClawServoPosition = ClawServoPosition.Open;
+                } )
+                .build();
+
+
+        TrajectorySequence backToPickup5 = drive.trajectorySequenceBuilder(backToDropOff4.end())
+                .strafeTo(new Vector2d(57, -8))
+                .addTemporalMarker(.7, () -> {
+                    armServo.setPosition(robotState.ARMBACKPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Back;
+                })
+                .addTemporalMarker(1.0, () -> {
+                    liftMotor.setTargetPosition(0);
+                })
+                .addTemporalMarker(2, () -> {
+                    clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
+                    robotState.ClawServoPosition = ClawServoPosition.Closed;
+                } )
+                .build();
+
+        TrajectorySequence backToDropOff5 = drive.trajectorySequenceBuilder(backToPickup5.end())
+                .strafeTo(new Vector2d(23, -12))
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE);})
+                .addTemporalMarker(.5, () -> {
+                    armServo.setPosition(robotState.ARMSIDEPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Side;
+                } )
+                .addTemporalMarker(2, () -> {
+                    clawServo.setPosition(robotState.CLAWOPENPOSITION);
+                    robotState.ClawServoPosition = ClawServoPosition.Open;
+                } )
+                .build();
+
+        TrajectorySequence backToPickup6 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+                .back(35)
                 .build();
 
         while (!opModeIsActive()) {
@@ -209,83 +281,37 @@ public class RightSideLow extends LinearOpMode {
             liftMotor.setPower(1);
             drive.followTrajectorySequence(start);
 
-            /*
-            liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE);
-
-            while (opModeIsActive() && (liftMotor.getCurrentPosition() - robotState.POLEPOSITIONMIDDLE > 10))
-                idle();
-
-            armServo.setPosition(robotState.ARMSIDEPOSITION - .03);
-            robotState.ArmServoPosition = ArmServoPosition.Side;
-
-            sleep(750);
-
-            liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 10);
-*/
-            //drive.followTrajectorySequence(forward);
-
-            armServo.setPosition(robotState.ARMBACKPOSITION);
-            robotState.ArmServoPosition = ArmServoPosition.Back;
-
-            sleep(400);
-
-            liftMotor.setTargetPosition(-170);
-
-            //drive.setPoseEstimate(new Pose2d(32, -23, Math.toRadians(-180)));
-
             drive.followTrajectorySequence(backToPickup1);
+
+            sleep(100);
 
             drive.followTrajectorySequence(backToDropOff1);
 
-            sleep(200);
-
-            armServo.setPosition(robotState.ARMBACKPOSITION);
-            robotState.ArmServoPosition = ArmServoPosition.Back;
-
-            sleep(400);
-
-            liftMotor.setTargetPosition(-128);
-
             drive.followTrajectorySequence(backToPickup2);
 
-            clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
-            robotState.ClawServoPosition = ClawServoPosition.Closed;
-
-            sleep(300);
-
             drive.followTrajectorySequence(backToDropOff2);
-/*
-            clawServo.setPosition(robotState.CLAWOPENPOSITION);
-            robotState.ClawServoPosition = ClawServoPosition.Open;
-
-            sleep(300);
-
-            armServo.setPosition(robotState.ARMBACKPOSITION);
-            robotState.ArmServoPosition = ArmServoPosition.Back;
-
-            sleep(400);
-
-            liftMotor.setTargetPosition(-86);
 
             drive.followTrajectorySequence(backToPickup3);
 
-            clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
-            robotState.ClawServoPosition = ClawServoPosition.Closed;
-
-            sleep(300);
-
             drive.followTrajectorySequence(backToDropOff3);
 
-            clawServo.setPosition(robotState.CLAWOPENPOSITION);
-            robotState.ClawServoPosition = ClawServoPosition.Open;
-
-            sleep(300);
-
-            liftMotor.setTargetPosition(0);// -53
-
-
             drive.followTrajectorySequence(backToPickup4);
-*/
+
+            drive.followTrajectorySequence(backToDropOff4);
+
+            drive.followTrajectorySequence(backToPickup5);
+
+            drive.followTrajectorySequence(backToDropOff5);
+
+            drive.followTrajectorySequence(backToPickup6);
+
+            armServo.setPosition(robotState.ARMFRONTPOSITION);
+            robotState.ArmServoPosition = ArmServoPosition.Front;
+
+            sleep(200);
+
+            liftMotor.setTargetPosition(0);
+
             while (opModeIsActive()) {
                 sleep(20);
             }
