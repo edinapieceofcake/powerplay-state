@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -33,6 +34,7 @@ public class StrafeTest extends LinearOpMode {
         rightEncoder = hardwareMap.get(DcMotorEx.class, "rightEncoder");
         centerEncoder = hardwareMap.get(DcMotorEx.class, "centerEncoder");
 
+        leftEncoder.setDirection(DcMotorSimple.Direction.REVERSE);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         int leftStart = leftEncoder.getCurrentPosition();
@@ -44,10 +46,16 @@ public class StrafeTest extends LinearOpMode {
                 .strafeRight(DISTANCE)
                 .build();
 
+        Trajectory trajectory1 = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(DISTANCE)
+                .build();
+
         waitForStart();
 
         if (isStopRequested()) return;
 
+        drive.followTrajectory(trajectory);
+        drive.followTrajectory(trajectory1);
         drive.followTrajectory(trajectory);
 
 
