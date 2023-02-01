@@ -9,6 +9,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.localization.ThreeTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.RobotLog;
 
@@ -85,21 +86,9 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
-        if ((previousLeft != leftEncoder.getCurrentPosition()) ||
-            (previousFront != frontEncoder.getCurrentPosition()) ||
-            (previousRight != rightEncoder.getCurrentPosition())
-        ) {
-            Log.d("getWheelPositions", String.format("%d, %d, %d", leftEncoder.getCurrentPosition(),
-                    rightEncoder.getCurrentPosition(),
-                    frontEncoder.getCurrentPosition()));
-
-            previousRight = rightEncoder.getCurrentPosition();
-            previousFront = frontEncoder.getCurrentPosition();
-            previousLeft = leftEncoder.getCurrentPosition();
-        }
-//        RobotLog.dd("getWheelPositions, ", "left, %d", leftEncoder.getCurrentPosition());
-//        RobotLog.dd("getWheelPositions, ", "right, %d", rightEncoder.getCurrentPosition());
-//        RobotLog.dd("getWheelPositions, ", "front, %d", frontEncoder.getCurrentPosition());
+        Log.d("getWheelPositions", String.format("%d, %d, %d", leftEncoder.getCurrentPosition(),
+                rightEncoder.getCurrentPosition(),
+                frontEncoder.getCurrentPosition()));
 
         return Arrays.asList(
                 encoderTicksToInches(leftEncoder.getCurrentPosition()) * X_MULTIPLIER,
