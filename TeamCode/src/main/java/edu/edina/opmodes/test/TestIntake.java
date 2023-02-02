@@ -15,6 +15,7 @@ import edu.edina.library.util.Stickygamepad;
 public class TestIntake extends LinearOpMode {
     private Servo clawServo;
     private Servo armServo;
+    private Servo slicerServo;
     private DcMotorEx liftMotor;
 
     private DcMotorEx leftEncoder;
@@ -27,6 +28,7 @@ public class TestIntake extends LinearOpMode {
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
         armServo = hardwareMap.get(Servo.class, "armServo");
+        slicerServo = hardwareMap.get(Servo.class, "slicerServo");
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
 
         leftEncoder = hardwareMap.get(DcMotorEx.class, "leftEncoder");
@@ -42,8 +44,8 @@ public class TestIntake extends LinearOpMode {
 
         // set the digital channel to input.
         armServo.setPosition(.5);
-
         clawServo.setPosition(.5);
+        slicerServo.setPosition(.5);
 
         waitForStart();
 
@@ -66,8 +68,18 @@ public class TestIntake extends LinearOpMode {
                 armServo.setPosition(armServo.getPosition() - .01);
             }
 
+            if (pad1.left_bumper)
+            {
+                slicerServo.setPosition(slicerServo.getPosition() + .01);
+            }
+
+            if (pad1.right_bumper) {
+                slicerServo.setPosition(slicerServo.getPosition() - .01);
+            }
+
             telemetry.addData("Claw Servo", clawServo.getPosition());
             telemetry.addData("Arm Servo", armServo.getPosition());
+            telemetry.addData("Slicer Servo", slicerServo.getPosition());
             telemetry.addData("Lift Location", liftMotor.getCurrentPosition());
 
             telemetry.addData("Left Encoder", leftEncoder.getCurrentPosition());

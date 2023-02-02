@@ -122,11 +122,12 @@ public class RightSideMedium extends LinearOpMode {
                 .strafeTo(new Vector2d(32, -23))
                 .build();
 
+        // cone two
         TrajectorySequence backToPickup1 = drive.trajectorySequenceBuilder(start.end())
                 .strafeRight(15)
                 .back(25)
                 .addTemporalMarker(1.0, () -> {
-                    liftMotor.setTargetPosition(-160);
+                    liftMotor.setTargetPosition(robotState.CONEPOSITION5);
                     armServo.setPosition(robotState.ARMBACKPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Back;
                 })

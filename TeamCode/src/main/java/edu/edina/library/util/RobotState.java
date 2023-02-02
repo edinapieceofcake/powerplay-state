@@ -19,10 +19,17 @@ public class RobotState {
     public double SpeedMultiplier = 0.0;
     public double CLAWOPENPOSITION = 0.56;
     public double CLAWCLOSEDPOSITION = 0.83;
+    public double CLAWOPENFORDROPOFF = .59;
     public int CLAWOPENPOSITION100 = 56;
     public double ARMFRONTPOSITION = 0.14;
     public double ARMBACKPOSITION = 0.83;
     public double ARMSIDEPOSITION = 0.5;
+
+    public double SLICERBACKINTOPOLEPOSITION = .88;
+    public double SLICERFORWARDINTOPOLEPOSITION = .82;
+    public double SLICERSTORAGEPOSITION = .2;
+
+    public int CONEPOSITION5 = -160;
 
     public int POLEPOSITIONLOW = -465;
     public int POLEPOSITIONMIDDLE = -805;
