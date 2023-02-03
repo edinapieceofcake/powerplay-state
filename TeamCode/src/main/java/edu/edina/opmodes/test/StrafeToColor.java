@@ -44,7 +44,7 @@ public class StrafeToColor extends LinearOpMode {
         frontColor.setGain(2);
         drive.setPoseEstimate(new Pose2d(36, 64, Math.toRadians(270)));
         TrajectorySequence strafe = drive.trajectorySequenceBuilder(new Pose2d(36, 64, Math.toRadians(270)))
-                .strafeLeft(10).build();
+                .strafeRight(10).build();
 
         while (!isStarted()) {
             colors = backColor.getNormalizedColors();
@@ -74,7 +74,7 @@ public class StrafeToColor extends LinearOpMode {
 
         drive.followTrajectorySequenceAsync(strafe);
         while (!Thread.currentThread().isInterrupted() && drive.isBusy()) {
-            colors = frontColor.getNormalizedColors();
+            colors = backColor.getNormalizedColors();
             Color.colorToHSV(colors.toColor(), hsvValues);
             if ((hsvValues[0] < 100) || (hsvValues[0] > 160)){
                 drive.breakFollowing();
@@ -93,10 +93,14 @@ public class StrafeToColor extends LinearOpMode {
             idle();
         }
 
-        double distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH)-3.75;
+        double distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH);
+
+        if (distanceToTravel > 4) {
+            distanceToTravel = 4;
+        }
         TrajectorySequence forward = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
-                .resetConstraints()
-                .forward(distanceToTravel)
+                .strafeRight(2)
+                .back(distanceToTravel)
                 .build();
 
         drive.followTrajectorySequence(forward);
