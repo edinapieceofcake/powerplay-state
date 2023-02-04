@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -61,8 +62,7 @@ public class LeftSideMedium extends LinearOpMode {
     private Servo armServo;
     private Servo clawServo;
     private Servo slicerServo;
-    private DigitalChannel liftSwitch;
-    private NormalizedColorSensor frontColor;
+    private ColorSensor frontColor;
     private DistanceSensor frontDistance;
 
     @Override
@@ -100,15 +100,9 @@ public class LeftSideMedium extends LinearOpMode {
         armServo = hardwareMap.get(Servo.class, "armServo");
         clawServo = hardwareMap.get(Servo.class, "clawServo");
         slicerServo = hardwareMap.get(Servo.class, "slicerServo");
-        liftSwitch = hardwareMap.get(DigitalChannel.class, "liftSwitch");
-        frontColor = hardwareMap.get(NormalizedColorSensor.class, "frontColor");
+        frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         frontDistance = hardwareMap.get(DistanceSensor.class, "frontDistance");
         final float[] hsvValues = new float[3];
-        NormalizedRGBA colors;
-
-        frontColor.setGain(2);
-
-        liftSwitch.setMode(DigitalChannel.Mode.INPUT);
 
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //liftMotor.setPower(1);
@@ -128,10 +122,10 @@ public class LeftSideMedium extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(new Pose2d(-33, -65, Math.toRadians(-180)));
 
-        // cone one
+        // cone one drop off
         TrajectorySequence start = drive.trajectorySequenceBuilder(new Pose2d(-33, -65, Math.toRadians(-180)))
                 .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONLOW);})
-                .addTemporalMarker(1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 40); })
+                .addTemporalMarker(1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION); })
                 .addTemporalMarker(2.3, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Open;
@@ -144,17 +138,10 @@ public class LeftSideMedium extends LinearOpMode {
                 .strafeRight(9)
                 .forward(22.5)
                 .addTemporalMarker(1.0, () -> {
-                    liftMotor.setTargetPosition(robotState.CONEPOSITION5);
+                    liftMotor.setTargetPosition(robotState.CONESTACKPOSITION5);
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                 })
-
-                /*
-                .addTemporalMarker(3.2, () -> {
-                    clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
-                    robotState.ClawServoPosition = ClawServoPosition.Closed;
-                } )
-                 */
                 .build();
 
         TrajectorySequence strafe = drive.trajectorySequenceBuilder(backToPickup1.end())
@@ -163,7 +150,7 @@ public class LeftSideMedium extends LinearOpMode {
         // cone two drop off
         TrajectorySequence backToDropOff1 = drive.trajectorySequenceBuilder(new Pose2d(-60, -10, Math.toRadians(-180)))
                 .strafeTo(new Vector2d(-23, -10))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 40);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -174,10 +161,11 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
+        // cone three pickup
         TrajectorySequence backToPickup2 = drive.trajectorySequenceBuilder(backToDropOff1.end())
                 .strafeTo(new Vector2d(-60, -10))
                 .addTemporalMarker(1.0, () -> {
-                    liftMotor.setTargetPosition(-120);
+                    liftMotor.setTargetPosition(robotState.CONESTACKPOSITION4);
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                 })
@@ -187,10 +175,10 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
-        // cone three
+        // cone three drop off
         TrajectorySequence backToDropOff2 = drive.trajectorySequenceBuilder(backToPickup2.end())
                 .strafeTo(new Vector2d(-22.5, -10))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 40);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -201,10 +189,11 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
+        // cone four pickup
         TrajectorySequence backToPickup3 = drive.trajectorySequenceBuilder(backToDropOff2.end())
                 .strafeTo(new Vector2d(-60, -10))
                 .addTemporalMarker(1.0, () -> {
-                    liftMotor.setTargetPosition(-80);
+                    liftMotor.setTargetPosition(robotState.CONESTACKPOSITION3);
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                 })
@@ -214,10 +203,10 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
-        // cone four
+        // cone four drop off
         TrajectorySequence backToDropOff3 = drive.trajectorySequenceBuilder(backToPickup3.end())
                 .strafeTo(new Vector2d(-22.5, -10))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 40);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -228,10 +217,11 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
+        // cone five pickup
         TrajectorySequence backToPickup4 = drive.trajectorySequenceBuilder(backToDropOff3.end())
                 .strafeTo(new Vector2d(-60, -10))
                 .addTemporalMarker(1.0, () -> {
-                    liftMotor.setTargetPosition(-50);
+                    liftMotor.setTargetPosition(robotState.CONESTACKPOSITION2);
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                 })
@@ -241,10 +231,10 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
-        // cone five
+        // cone five drop off
         TrajectorySequence backToDropOff4 = drive.trajectorySequenceBuilder(backToPickup4.end())
                 .strafeTo(new Vector2d(-22.5, -10))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 40);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -255,7 +245,7 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
-
+        // cone six pickup
         TrajectorySequence backToPickup5 = drive.trajectorySequenceBuilder(backToDropOff4.end())
                 .strafeTo(new Vector2d(-60, -10))
                 .addTemporalMarker(.7, () -> {
@@ -263,7 +253,7 @@ public class LeftSideMedium extends LinearOpMode {
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                 })
                 .addTemporalMarker(1.0, () -> {
-                    liftMotor.setTargetPosition(0);
+                    liftMotor.setTargetPosition(robotState.CONESTACKPOSITION1);
                 })
                 .addTemporalMarker(2, () -> {
                     clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
@@ -271,10 +261,10 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
-        // cone6
+        // cone six drop off
         TrajectorySequence backToDropOff5 = drive.trajectorySequenceBuilder(backToPickup5.end())
                 .strafeTo(new Vector2d(-22.5, -10))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONMIDDLE + 40);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -285,8 +275,18 @@ public class LeftSideMedium extends LinearOpMode {
                 } )
                 .build();
 
+        // park
         TrajectorySequence backToPickup6 = drive.trajectorySequenceBuilder(backToDropOff5.end())
-                .forward(35)
+                .addTemporalMarker(0.1, () -> {
+                    armServo.setPosition(robotState.ARMFRONTPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Front;
+                })
+                .addTemporalMarker(0.4, () -> {
+                    liftMotor.setTargetPosition(0);
+                })
+                .forward(7)
+                //.forward(35)
+                //.back(15)
                 .build();
 
         while(!isStarted()) {
@@ -312,8 +312,7 @@ public class LeftSideMedium extends LinearOpMode {
 
             drive.followTrajectorySequenceAsync(strafe);
             while (!Thread.currentThread().isInterrupted() && drive.isBusy()) {
-                colors = frontColor.getNormalizedColors();
-                Color.colorToHSV(colors.toColor(), hsvValues);
+                Color.RGBToHSV(frontColor.red() * 8, frontColor.green() * 8, frontColor.blue() * 8, hsvValues);
                 if ((hsvValues[0] < 100) || (hsvValues[0] > 180)){
                     drive.breakFollowing();
                     drive.setDrivePower(new Pose2d());
@@ -362,22 +361,12 @@ public class LeftSideMedium extends LinearOpMode {
 
             drive.followTrajectorySequence(backToPickup6);
 
-            armServo.setPosition(robotState.ARMFRONTPOSITION);
-            robotState.ArmServoPosition = ArmServoPosition.Front;
-
-            sleep(200);
-
-            liftMotor.setTargetPosition(0);
-
             while (opModeIsActive()) {
-                colors = frontColor.getNormalizedColors();
-                Color.colorToHSV(colors.toColor(), hsvValues);
+                Color.RGBToHSV(frontColor.red() * 8, frontColor.green() * 8, frontColor.blue() * 8, hsvValues);
                 distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH);
                 telemetry.addData("Pose", drive.getPoseEstimate());
                 telemetry.addLine()
                         .addData("Front Hue", "%.3f", hsvValues[0])
-                        .addData("Front Saturation", "%.3f", hsvValues[1])
-                        .addData("Front Value", "%.3f", hsvValues[2])
                         .addData("Distance To Travel", distanceToTravel);
 
                 telemetry.update();

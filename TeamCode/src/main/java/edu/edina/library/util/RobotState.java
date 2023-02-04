@@ -29,11 +29,16 @@ public class RobotState {
     public double SLICERFORWARDINTOPOLEPOSITION = .82;
     public double SLICERSTORAGEPOSITION = .2;
 
-    public int CONEPOSITION5 = -160;
+    public int CONESTACKPOSITION5 = -160;
+    public int CONESTACKPOSITION4 = -120;
+    public int CONESTACKPOSITION3 = -70;
+    public int CONESTACKPOSITION2 = -40;
+    public int CONESTACKPOSITION1 = 0;
 
     public int POLEPOSITIONLOW = -465;
     public int POLEPOSITIONMIDDLE = -805;
     public int POLEPOSITIONHIGH = -1110;
+    public int AUTOPOLEPOSITION = -790;
     public int LIFTWAITTIME = 250;
 
     public int CLAWOPENWAITTIME = 250;
