@@ -17,6 +17,7 @@ public class MecanumDriveRR extends Subsystem{
     private double rightStickX;
     private SampleMecanumDrive drive;
     private RobotState robotState;
+    private boolean highSpeed;
 
     public MecanumDriveRR(HardwareMap map, RobotState robotState){
         try {
@@ -25,6 +26,7 @@ public class MecanumDriveRR extends Subsystem{
             drive.setPoseEstimate(PoseStorage.currentPose);
             robotState.SpeedMultiplier = robotState.LowSpeedMultiplier;
             this.robotState = robotState;
+            this.highSpeed = false;
             robotState.DriveSuccessfullySetup = true;
         } catch (Exception ex) {
             robotState.DriveSuccessfullySetup = false;
@@ -51,12 +53,12 @@ public class MecanumDriveRR extends Subsystem{
 
     public void setDriveProperties(double leftStickX, double leftStickY, double rightStickX, boolean dPadDown){
         if (dPadDown) {
-            if (robotState.SpeedMultiplier == robotState.LowSpeedMultiplier) {
-                robotState.SpeedMultiplier = robotState.HighSpeedMultiplier;
-            }
-
-            if (robotState.SpeedMultiplier == robotState.HighSpeedMultiplier) {
+            if (highSpeed) {
                 robotState.SpeedMultiplier = robotState.LowSpeedMultiplier;
+                highSpeed = false;
+            } else {
+                highSpeed = true;
+                robotState.SpeedMultiplier = robotState.HighSpeedMultiplier;
             }
         }
 

@@ -16,7 +16,7 @@ public class RobotState {
     public double ArmPosition = 0.0;
     public boolean LiftSwitch = false;
     public boolean LiftMotorReset = false;
-    public double SpeedMultiplier = 0.0;
+    public double SpeedMultiplier = 0.5;
     public double CLAWOPENPOSITION = 0.56;
     public double CLAWCLOSEDPOSITION = 0.83;
     public double CLAWOPENFORDROPOFF = .59;
@@ -50,7 +50,7 @@ public class RobotState {
     public int POLEPOSITIONFIVE = -200;
 
     public double LowSpeedMultiplier = .5;
-    public double HighSpeedMultiplier = .6;
+    public double HighSpeedMultiplier = .75;
 
     public double LiftUpSpeed = .9;
     public double LiftDownSpeed = .5;
