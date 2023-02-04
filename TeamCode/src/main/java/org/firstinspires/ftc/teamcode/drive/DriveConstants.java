@@ -67,7 +67,7 @@ public class DriveConstants {
     //public static double TRACK_WIDTH = 9.65;
     //public static double TRACK_WIDTH = 9.345;
 //    public static double TRACK_WIDTH = 9.61;
-    public static double TRACK_WIDTH = 9.52;
+    public static double TRACK_WIDTH = 10.47;
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
