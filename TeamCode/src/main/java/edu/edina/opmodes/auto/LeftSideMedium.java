@@ -135,7 +135,7 @@ public class LeftSideMedium extends LinearOpMode {
 
         // cone two pickup
         TrajectorySequence backToPickup1 = drive.trajectorySequenceBuilder(start.end())
-                .strafeRight(9)
+                .strafeRight(10)
                 .forward(22.5)
                 .addTemporalMarker(1.0, () -> {
                     liftMotor.setTargetPosition(robotState.CONESTACKPOSITION5);
@@ -284,8 +284,8 @@ public class LeftSideMedium extends LinearOpMode {
                 .addTemporalMarker(0.4, () -> {
                     liftMotor.setTargetPosition(0);
                 })
-                .forward(7)
-                //.forward(35)
+                //.forward(7)
+                .forward(35)
                 //.back(15)
                 .build();
 
