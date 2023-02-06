@@ -29,18 +29,17 @@ public class RobotState {
     public double SLICERFORWARDINTOPOLEPOSITION = .82;
     public double SLICERSTORAGEPOSITION = .2;
 
-    public int CONESTACKPOSITION5 = -160;
-    public int CONESTACKPOSITION4 = -120;
-    public int CONESTACKPOSITION3 = -70;
-    public int CONESTACKPOSITION2 = -40;
+    public int CONESTACKPOSITION5 = -155;
+    public int CONESTACKPOSITION4 = -115;
+    public int CONESTACKPOSITION3 = -65;
+    public int CONESTACKPOSITION2 = -35;
     public int CONESTACKPOSITION1 = 0;
 
     public int POLEPOSITIONLOW = -465;
     public int POLEPOSITIONMIDDLE = -805;
     public int POLEPOSITIONHIGH = -1110;
     public int AUTOPOLEPOSITIONLOW = -750;
-    public int AUTOPOLEPOSITIONHIGH = -1110;
-    public int LIFTWAITTIME = 250;
+    public int AUTOPOLEPOSITIONHIGH = -1060;
 
     public int CLAWOPENWAITTIME = 250;
     public int LIFTRETURNHEiGHT = 0;
@@ -48,13 +47,16 @@ public class RobotState {
     public boolean DriveSuccessfullySetup = false;
     public int FutureTargetPosition = 0;
 
-    public int POLEPOSITIONFIVE = -200;
-
     public double LowSpeedMultiplier = .5;
     public double HighSpeedMultiplier = .75;
 
     public double LiftUpSpeed = .9;
     public double LiftDownSpeed = .5;
+
+    public double SERVOUPPOSITION = .5;
+    public double SERVODOWNPOSITION = 1.0;
+
+    public double Voltage = 0.0;
 
     public RobotState() {}
 
@@ -70,6 +72,7 @@ public class RobotState {
             telemetry.addData("TargetPoleLocation", TargetPoleLocation);
             telemetry.addData("LiftUpSpeed", LiftUpSpeed);
             telemetry.addData("LiftDownSpeed", LiftDownSpeed);
+            telemetry.addData("Voltage", Voltage);
         } else {
             telemetry.addData("Unable to setup motors liftMotor or setup servos armServo or latchServo", "");
         }
