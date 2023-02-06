@@ -118,7 +118,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
                     } else if (robotState.ArmServoPosition == ArmServoPosition.Side) {
                         armServo.setPosition(robotState.ARMSIDEPOSITION);
                     } else if (robotState.ArmServoPosition == ArmServoPosition.Back) {
-                        armServo.setPosition(robotState.ARMBACKPOSTITION);
+                        armServo.setPosition(robotState.ARMBACKPOSITION);
                     }
                 }
             }
@@ -150,7 +150,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         } else if (robotState.ArmServoPosition == ArmServoPosition.Side) {
             armServo.setPosition(robotState.ARMSIDEPOSITION);
         } else if (robotState.ArmServoPosition == ArmServoPosition.Back) {
-            armServo.setPosition(robotState.ARMBACKPOSTITION);
+            armServo.setPosition(robotState.ARMBACKPOSITION);
         }
 
         robotState.LiftMotorLocation = liftMotor.getCurrentPosition();

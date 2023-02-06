@@ -16,17 +16,30 @@ public class RobotState {
     public double ArmPosition = 0.0;
     public boolean LiftSwitch = false;
     public boolean LiftMotorReset = false;
-    public double SpeedMultiplier = 0.0;
+    public double SpeedMultiplier = 0.5;
     public double CLAWOPENPOSITION = 0.56;
     public double CLAWCLOSEDPOSITION = 0.83;
+    public double CLAWOPENFORDROPOFF = .59;
     public int CLAWOPENPOSITION100 = 56;
     public double ARMFRONTPOSITION = 0.14;
-    public double ARMBACKPOSTITION = 0.83;
+    public double ARMBACKPOSITION = 0.83;
     public double ARMSIDEPOSITION = 0.5;
+
+    public double SLICERBACKINTOPOLEPOSITION = .88;
+    public double SLICERFORWARDINTOPOLEPOSITION = .82;
+    public double SLICERSTORAGEPOSITION = .2;
+
+    public int CONESTACKPOSITION5 = -160;
+    public int CONESTACKPOSITION4 = -120;
+    public int CONESTACKPOSITION3 = -70;
+    public int CONESTACKPOSITION2 = -40;
+    public int CONESTACKPOSITION1 = 0;
 
     public int POLEPOSITIONLOW = -465;
     public int POLEPOSITIONMIDDLE = -805;
     public int POLEPOSITIONHIGH = -1110;
+    public int AUTOPOLEPOSITIONLOW = -750;
+    public int AUTOPOLEPOSITIONHIGH = -1110;
     public int LIFTWAITTIME = 250;
 
     public int CLAWOPENWAITTIME = 250;
@@ -35,8 +48,10 @@ public class RobotState {
     public boolean DriveSuccessfullySetup = false;
     public int FutureTargetPosition = 0;
 
+    public int POLEPOSITIONFIVE = -200;
+
     public double LowSpeedMultiplier = .5;
-    public double HighSpeedMultiplier = .6;
+    public double HighSpeedMultiplier = .75;
 
     public double LiftUpSpeed = .9;
     public double LiftDownSpeed = .5;
