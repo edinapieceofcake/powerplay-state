@@ -14,16 +14,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import edu.edina.library.util.ArmServoPosition;
 import edu.edina.library.util.ClawServoPosition;
@@ -70,8 +73,8 @@ public class RightSideMedium extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-/*        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "rightCamera"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
         camera.setPipeline(aprilTagDetectionPipeline);
@@ -88,15 +91,6 @@ public class RightSideMedium extends LinearOpMode {
         });
 
         telemetry.setMsTransmissionInterval(50);
-*/
-        double dropoffX1 = 23;
-        double dropoffX2 = 25;
-        double dropoffX3 = 25;
-        double dropoffX4 = 25;
-        double dropoffX5 = 25;
-        double dropoffX6 = 25;
-        double dropoffY = -6;
-        double pickupX = 58;
 
         robotState = new RobotState();
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
@@ -125,7 +119,7 @@ public class RightSideMedium extends LinearOpMode {
         // cone one drop off
         TrajectorySequence start = drive.trajectorySequenceBuilder(new Pose2d(33, -65, Math.toRadians(-180)))
                 .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.POLEPOSITIONLOW);})
-                .addTemporalMarker(1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION); })
+                .addTemporalMarker(1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW); })
                 .addTemporalMarker(2, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Open;
@@ -165,7 +159,7 @@ public class RightSideMedium extends LinearOpMode {
         TrajectorySequence backToDropOff1 = drive.trajectorySequenceBuilder(new Pose2d(60, -8, Math.toRadians(-180)))
                 .resetConstraints()
                 .strafeTo(new Vector2d(24.5, -12.5))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -195,7 +189,7 @@ public class RightSideMedium extends LinearOpMode {
         // cone three dropoff
         TrajectorySequence backToDropOff2 = drive.trajectorySequenceBuilder(backToPickup2.end())
                 .strafeTo(new Vector2d(25.5, -12.5))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -225,7 +219,7 @@ public class RightSideMedium extends LinearOpMode {
         // cone four drop off
         TrajectorySequence backToDropOff3 = drive.trajectorySequenceBuilder(backToPickup3.end())
                 .strafeTo(new Vector2d(25.5, -12.5))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -255,7 +249,7 @@ public class RightSideMedium extends LinearOpMode {
         // cone five drop off
         TrajectorySequence backToDropOff4 = drive.trajectorySequenceBuilder(backToPickup4.end())
                 .strafeTo(new Vector2d(25.5, -12.5))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -286,7 +280,7 @@ public class RightSideMedium extends LinearOpMode {
         // cone six drop off
         TrajectorySequence backToDropOff5 = drive.trajectorySequenceBuilder(backToPickup5.end())
                 .strafeTo(new Vector2d(25.5, -12.5))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITION);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -298,7 +292,29 @@ public class RightSideMedium extends LinearOpMode {
                 .build();
 
         // park
-        TrajectorySequence backToPickup6 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+        TrajectorySequence backToPickup6_1 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+                .addTemporalMarker(0.1, () -> {
+                    armServo.setPosition(robotState.ARMFRONTPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Front;
+                })
+                .addTemporalMarker(0.4, () -> {
+                    liftMotor.setTargetPosition(0);
+                })
+                .forward(10)
+                .build();
+
+        TrajectorySequence backToPickup6_2 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+                .addTemporalMarker(0.1, () -> {
+                    armServo.setPosition(robotState.ARMFRONTPOSITION);
+                    robotState.ArmServoPosition = ArmServoPosition.Front;
+                })
+                .addTemporalMarker(0.4, () -> {
+                    liftMotor.setTargetPosition(0);
+                })
+                .back(15)
+                .build();
+
+        TrajectorySequence backToPickup6_3 = drive.trajectorySequenceBuilder(backToDropOff5.end())
                 .addTemporalMarker(0.1, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -309,18 +325,77 @@ public class RightSideMedium extends LinearOpMode {
                 .back(35)
                 .build();
 
-        while (!isStarted()) {
-            telemetry.addData("Start Duration", start.duration());
-            telemetry.addData("Back to Pickup1 Duration", backToPickup1.duration());
-            telemetry.addData("Back to Drop off1 Duration", backToDropOff1.duration());
-            telemetry.addData("Back to Pickup2 Duration", backToPickup2.duration());
-            telemetry.addData("Back to Drop off2 Duration", backToDropOff2.duration());
-            telemetry.addData("Back to Pickup3 Duration", backToPickup3.duration());
-            telemetry.addData("Back to Drop off3 Duration", backToDropOff3.duration());
-            telemetry.update();
+        TrajectorySequence driveBack = drive.trajectorySequenceBuilder(backToPickup5.end())
+                .back(3)
+                .build();
+
+        while (!isStarted() && !isStopRequested())
+        {
+            // Calling getDetectionsUpdate() will only return an object if there was a new frame
+            // processed since the last time we called it. Otherwise, it will return null. This
+            // enables us to only run logic when there has been a new frame, as opposed to the
+            // getLatestDetections() method which will always return an object.
+            ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
+
+            // If there's been a new frame...
+            if(detections != null)
+            {
+                telemetry.addData("FPS", camera.getFps());
+                telemetry.addData("Overhead ms", camera.getOverheadTimeMs());
+                telemetry.addData("Pipeline ms", camera.getPipelineTimeMs());
+
+                // If we don't see any tags
+                if(detections.size() == 0)
+                {
+                    numFramesWithoutDetection++;
+
+                    // If we haven't seen a tag for a few frames, lower the decimation
+                    // so we can hopefully pick one up if we're e.g. far back
+                    if(numFramesWithoutDetection >= THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION)
+                    {
+                        aprilTagDetectionPipeline.setDecimation(DECIMATION_LOW);
+                    }
+                }
+                // We do see tags!
+                else
+                {
+                    numFramesWithoutDetection = 0;
+
+                    // If the target is within 1 meter, turn on high decimation to
+                    // increase the frame rate
+                    if(detections.get(0).pose.z < THRESHOLD_HIGH_DECIMATION_RANGE_METERS)
+                    {
+                        aprilTagDetectionPipeline.setDecimation(DECIMATION_HIGH);
+                    }
+
+                    for(AprilTagDetection detection : detections)
+                    {
+                        detectionId = detection.id;
+                        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+                        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
+                        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
+                        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
+                        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
+                        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
+                        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
+                    }
+                }
+
+                telemetry.update();
+            }
+
+            sleep(20);
         }
 
+        camera.closeCameraDeviceAsync(new OpenCvCamera.AsyncCameraCloseListener() {
+            @Override
+            public void onClose() {
+
+            }
+        });
+
         if (opModeIsActive()) {
+            this.resetRuntime();
             liftMotor.setPower(1);
             drive.followTrajectorySequence(start);
 
@@ -339,7 +414,7 @@ public class RightSideMedium extends LinearOpMode {
                 idle();
             }
 
-            double distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH) - 2;
+            double distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH) ;
             if (distanceToTravel > 4) {
                 distanceToTravel = 4;
             }
@@ -385,9 +460,26 @@ public class RightSideMedium extends LinearOpMode {
 
             drive.followTrajectorySequence(backToPickup5);
 
-            drive.followTrajectorySequence(backToDropOff5);
+            if ((detectionId == 9) && (getRuntime() > 25)) {
+                sleep(200);
+                liftMotor.setTargetPosition(-320);
+                sleep(700);
+                armServo.setPosition(robotState.ARMFRONTPOSITION);
+                robotState.ArmServoPosition = ArmServoPosition.Front;
+                sleep(1000);
+                liftMotor.setTargetPosition(0);
+                drive.followTrajectorySequence(driveBack);
+            } else {
+                drive.followTrajectorySequence(backToDropOff5);
 
-            drive.followTrajectorySequence(backToPickup6);
+                if (detectionId == 3) {
+                    drive.followTrajectorySequence(backToPickup6_3);
+                } else if (detectionId == 6) {
+                    drive.followTrajectorySequence(backToPickup6_2);
+                } else {
+                    drive.followTrajectorySequence(backToPickup6_1);
+                }
+            }
 
             while (opModeIsActive()) {
                 distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH);
