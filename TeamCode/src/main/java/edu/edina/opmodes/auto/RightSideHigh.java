@@ -346,6 +346,9 @@ public class RightSideHigh extends LinearOpMode {
             // getLatestDetections() method which will always return an object.
             ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
 
+            telemetry.addData("Make sure claw is in the back and high camera is facing field.", "");
+            telemetry.addData("Cone should always be on side with medium pole", "");
+
             // If there's been a new frame...
             if(detections != null)
             {
@@ -389,9 +392,9 @@ public class RightSideHigh extends LinearOpMode {
                         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
                     }
                 }
-
-                telemetry.update();
             }
+
+            telemetry.update();
 
             sleep(20);
         }
