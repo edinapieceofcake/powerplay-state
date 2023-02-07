@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDriveOdo;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
 
@@ -107,7 +107,7 @@ public class LeftSide extends LinearOpMode {
         armServo.setPosition(robotState.ARMFRONTPOSITION);
         robotState.ArmServoPosition = ArmServoPosition.Front;
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDriveOdo drive = new SampleMecanumDriveOdo(hardwareMap);
         drive.setPoseEstimate(new Pose2d(-35, -65, Math.toRadians(90)));
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(-35, -65, Math.toRadians(90)))
                 .splineToConstantHeading(new Vector2d(-59, -57), Math.toRadians(90))

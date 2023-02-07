@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
  * and op modes themselves.
  */
 @Config
-public class DriveConstants {
+public class DriveConstantsOdo {
 
     /*
      * These are motor constants that should be listed online for your motors.
@@ -67,7 +67,7 @@ public class DriveConstants {
     //public static double TRACK_WIDTH = 9.65;
     //public static double TRACK_WIDTH = 9.345;
 //    public static double TRACK_WIDTH = 9.61;
-    public static double TRACK_WIDTH = 10.47;
+    public static double TRACK_WIDTH = 9.75;
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using

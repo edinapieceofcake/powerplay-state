@@ -4,19 +4,15 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDriveOdo;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import edu.edina.library.util.ArmServoPosition;
 import edu.edina.library.util.ClawServoPosition;
@@ -111,7 +107,7 @@ public class RightSide extends LinearOpMode {
         armServo.setPosition(robotState.ARMFRONTPOSITION);
         robotState.ArmServoPosition = ArmServoPosition.Front;
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDriveOdo drive = new SampleMecanumDriveOdo(hardwareMap);
         drive.setPoseEstimate(new Pose2d(35, -65, Math.toRadians(90)));
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(35, -65, Math.toRadians(90)))
                 .splineToConstantHeading(new Vector2d(10, -57), Math.toRadians(90))

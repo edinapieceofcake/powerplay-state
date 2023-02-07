@@ -38,27 +38,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.kA;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.kStatic;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstantsOdo.kV;
 
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
-public class SampleMecanumDrive extends MecanumDrive {
+public class SampleMecanumDriveOdo extends MecanumDrive {
 //    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6, 0, 0);
 //    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
 
     public static double LATERAL_MULTIPLIER = 1.395;
 
@@ -79,7 +79,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     private BNO055IMU imu;
     private VoltageSensor batteryVoltageSensor;
 
-    public SampleMecanumDrive(HardwareMap hardwareMap) {
+    public SampleMecanumDriveOdo(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,

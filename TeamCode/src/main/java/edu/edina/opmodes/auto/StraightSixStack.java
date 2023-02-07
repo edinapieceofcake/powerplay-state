@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDriveOdo;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -73,7 +73,7 @@ public class StraightSixStack extends LinearOpMode {
         double dropoffY = -10;
         double pickupX = -66;
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDriveOdo drive = new SampleMecanumDriveOdo(hardwareMap);
         drive.setPoseEstimate(new Pose2d(-35, -65, Math.toRadians(90)));
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(-35, -65, Math.toRadians(90)))
                 .forward(31)
