@@ -311,12 +311,11 @@ public class LeftSideMedium extends LinearOpMode {
             // getLatestDetections() method which will always return an object.
             ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
 
-            telemetry.addData("Make sure claw is in the back and low camera is facing field.", "");
-            telemetry.addData("Cone should always be on side with medium pole", "");
-
             // If there's been a new frame...
             if(detections != null)
             {
+                telemetry.addData("Make sure claw is in the back and low camera is facing field.", "");
+                telemetry.addData("Cone should always be on side with medium pole", "");
                 telemetry.addData("FPS", camera.getFps());
                 telemetry.addData("Overhead ms", camera.getOverheadTimeMs());
                 telemetry.addData("Pipeline ms", camera.getPipelineTimeMs());
@@ -350,9 +349,9 @@ public class LeftSideMedium extends LinearOpMode {
                         detectionId = detection.id;
                         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
                     }
-                }
 
-                telemetry.update();
+                    telemetry.update();
+                }
             }
 
             sleep(20);

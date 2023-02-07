@@ -292,7 +292,7 @@ public class RightSideMedium extends LinearOpMode {
                 .build();
 
         // park
-        TrajectorySequence backToPickup6_1 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+        TrajectorySequence backToPickup6_left = drive.trajectorySequenceBuilder(backToDropOff5.end())
                 .addTemporalMarker(0.1, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -303,7 +303,7 @@ public class RightSideMedium extends LinearOpMode {
                 .forward(10)
                 .build();
 
-        TrajectorySequence backToPickup6_2 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+        TrajectorySequence backToPickup6_middle = drive.trajectorySequenceBuilder(backToDropOff5.end())
                 .addTemporalMarker(0.1, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -314,7 +314,7 @@ public class RightSideMedium extends LinearOpMode {
                 .back(15)
                 .build();
 
-        TrajectorySequence backToPickup6_3 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+        TrajectorySequence backToPickup6_right = drive.trajectorySequenceBuilder(backToDropOff5.end())
                 .addTemporalMarker(0.1, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -337,12 +337,11 @@ public class RightSideMedium extends LinearOpMode {
             // getLatestDetections() method which will always return an object.
             ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
 
-            telemetry.addData("Make sure claw is in the front and low camera is facing field.", "");
-            telemetry.addData("Cone should always be on side with medium pole", "");
-
             // If there's been a new frame...
             if(detections != null)
             {
+                telemetry.addData("Make sure claw is in the front and low camera is facing field.", "");
+                telemetry.addData("Cone should always be on side with medium pole", "");
                 telemetry.addData("FPS", camera.getFps());
                 telemetry.addData("Overhead ms", camera.getOverheadTimeMs());
                 telemetry.addData("Pipeline ms", camera.getPipelineTimeMs());
@@ -377,9 +376,9 @@ public class RightSideMedium extends LinearOpMode {
                         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
                     }
                 }
-            }
 
-            telemetry.update();
+                telemetry.update();
+            }
 
             sleep(20);
         }
@@ -470,11 +469,11 @@ public class RightSideMedium extends LinearOpMode {
                 drive.followTrajectorySequence(backToDropOff5);
 
                 if (detectionId == 3) {
-                    drive.followTrajectorySequence(backToPickup6_3);
+                    drive.followTrajectorySequence(backToPickup6_left);
                 } else if (detectionId == 6) {
-                    drive.followTrajectorySequence(backToPickup6_2);
+                    drive.followTrajectorySequence(backToPickup6_middle);
                 } else {
-                    drive.followTrajectorySequence(backToPickup6_1);
+                    drive.followTrajectorySequence(backToPickup6_right);
                 }
             }
 

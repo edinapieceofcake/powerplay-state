@@ -167,7 +167,7 @@ public class RightSideHigh extends LinearOpMode {
         // cone two dropoff
         TrajectorySequence backToDropOff1 = drive.trajectorySequenceBuilder(new Pose2d(60, -8, Math.toRadians(0)))
                 .resetConstraints()
-                .strafeTo(new Vector2d(24.5, -7))
+                .strafeTo(new Vector2d(25.5, -8))
                 .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONHIGH);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
@@ -181,7 +181,7 @@ public class RightSideHigh extends LinearOpMode {
 
         // cone three pickup
         TrajectorySequence backToPickup2 = drive.trajectorySequenceBuilder(backToDropOff1.end())
-                .strafeTo(new Vector2d(59.5, -8))
+                .strafeTo(new Vector2d(61, -8))
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -211,7 +211,7 @@ public class RightSideHigh extends LinearOpMode {
 
         // cone four pickup
         TrajectorySequence backToPickup3 = drive.trajectorySequenceBuilder(backToDropOff2.end())
-                .strafeTo(new Vector2d(59.6, -8))
+                .strafeTo(new Vector2d(61, -8))
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -241,7 +241,7 @@ public class RightSideHigh extends LinearOpMode {
 
         // cone five pickup
         TrajectorySequence backToPickup4 = drive.trajectorySequenceBuilder(backToDropOff3.end())
-                .strafeTo(new Vector2d(59.5, -8))
+                .strafeTo(new Vector2d(61, -8))
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -272,7 +272,7 @@ public class RightSideHigh extends LinearOpMode {
 
         // cone six pickup
         TrajectorySequence backToPickup5 = drive.trajectorySequenceBuilder(backToDropOff4.end())
-                .strafeTo(new Vector2d(59.5, -8))
+                .strafeTo(new Vector2d(61, -8))
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -289,7 +289,7 @@ public class RightSideHigh extends LinearOpMode {
         // cone six drop off
         TrajectorySequence backToDropOff5 = drive.trajectorySequenceBuilder(backToPickup5.end())
                 .strafeTo(new Vector2d(25.5, -8))
-                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONHIGH);})
+                .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONHIGH - 20);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
@@ -301,7 +301,7 @@ public class RightSideHigh extends LinearOpMode {
                 .build();
 
         // park
-        TrajectorySequence backToPickup6_1 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+        TrajectorySequence backToPickup6_left = drive.trajectorySequenceBuilder(backToDropOff5.end())
                 .addTemporalMarker(0.1, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -312,7 +312,7 @@ public class RightSideHigh extends LinearOpMode {
                 .back(15)
                 .build();
 
-        TrajectorySequence backToPickup6_2 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+        TrajectorySequence backToPickup6_middle = drive.trajectorySequenceBuilder(backToDropOff5.end())
                 .addTemporalMarker(0.1, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -320,10 +320,10 @@ public class RightSideHigh extends LinearOpMode {
                 .addTemporalMarker(0.4, () -> {
                     liftMotor.setTargetPosition(0);
                 })
-                .forward(15)
+                .forward(13)
                 .build();
 
-        TrajectorySequence backToPickup6_3 = drive.trajectorySequenceBuilder(backToDropOff5.end())
+        TrajectorySequence backToPickup6_right = drive.trajectorySequenceBuilder(backToDropOff5.end())
                 .addTemporalMarker(0.1, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -346,12 +346,11 @@ public class RightSideHigh extends LinearOpMode {
             // getLatestDetections() method which will always return an object.
             ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
 
-            telemetry.addData("Make sure claw is in the back and high camera is facing field.", "");
-            telemetry.addData("Cone should always be on side with medium pole", "");
-
             // If there's been a new frame...
             if(detections != null)
             {
+                telemetry.addData("Make sure claw is in the back and high camera is facing field.", "");
+                telemetry.addData("Cone should always be on side with medium pole", "");
                 telemetry.addData("FPS", camera.getFps());
                 telemetry.addData("Overhead ms", camera.getOverheadTimeMs());
                 telemetry.addData("Pipeline ms", camera.getPipelineTimeMs());
@@ -386,9 +385,9 @@ public class RightSideHigh extends LinearOpMode {
                         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
                     }
                 }
-            }
 
-            telemetry.update();
+                telemetry.update();
+            }
 
             sleep(20);
         }
@@ -468,14 +467,14 @@ public class RightSideHigh extends LinearOpMode {
 
             drive.followTrajectorySequence(backToDropOff5);
 
-            drive.followTrajectorySequence(backToPickup6_2);
+            drive.followTrajectorySequence(backToPickup6_left);
 /*
             if (detectionId == 3) {
-                drive.followTrajectorySequence(backToPickup6_3);
+                drive.followTrajectorySequence(backToPickup6_left);
             } else if (detectionId == 6) {
-                drive.followTrajectorySequence(backToPickup6_2);
+                drive.followTrajectorySequence(backToPickup6_middle);
             } else {
-                drive.followTrajectorySequence(backToPickup6_1);
+                drive.followTrajectorySequence(backToPickup6_right);
             }
 */
             while (opModeIsActive()) {
