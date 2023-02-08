@@ -18,6 +18,7 @@ public class RobotState {
     public boolean LiftMotorReset = false;
     public double SpeedMultiplier = 0.5;
     public double CLAWOPENPOSITION = 0.56;
+    public double CLAWMIDDLEPOSITION = 0.7;
     public double CLAWCLOSEDPOSITION = 0.83;
     public double CLAWOPENFORDROPOFF = .59;
     public int CLAWOPENPOSITION100 = 56;
