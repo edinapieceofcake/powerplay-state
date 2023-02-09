@@ -16,7 +16,9 @@ public class NoThreadTeleopRR extends OpMode {
     public void init() {
         _gamepad1 = new Stickygamepad(gamepad1);
         _gamepad2 = new Stickygamepad(gamepad2);
+
         robot = new NoThreadRobotRR(this, telemetry);
+
         Servo leftServo = hardwareMap.get(Servo.class, "leftPodServo");
         Servo rightServo = hardwareMap.get(Servo.class, "rightPodServo");
         Servo centerServo = hardwareMap.get(Servo.class, "centerPodServo");

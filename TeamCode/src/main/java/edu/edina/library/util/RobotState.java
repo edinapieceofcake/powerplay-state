@@ -26,9 +26,11 @@ public class RobotState {
     public double ARMBACKPOSITION = 0.83;
     public double ARMSIDEPOSITION = 0.5;
 
-    public double SLICERBACKINTOPOLEPOSITION = .88;
-    public double SLICERFORWARDINTOPOLEPOSITION = .82;
-    public double SLICERSTORAGEPOSITION = .2;
+    public static double SLICERBACKINTOPOLEPOSITION = .8;
+    public static double SLICERFORWARDINTOPOLEPOSITION = .78;
+    public static double SLICERSTORAGEPOSITION = .32;
+    public static double SLICERDROPFORWARDINTOPOLEPOSITION = 1;
+    public static double SLICERTELEOPSTORAGEPOSITION = .2;
 
     public int CONESTACKPOSITION5 = -155;
     public int CONESTACKPOSITION4 = -115;
@@ -39,8 +41,8 @@ public class RobotState {
     public int POLEPOSITIONLOW = -465;
     public int POLEPOSITIONMIDDLE = -805;
     public int POLEPOSITIONHIGH = -1110;
-    public int AUTOPOLEPOSITIONLOW = -750;
-    public int AUTOPOLEPOSITIONHIGH = -1100;
+    public int AUTOPOLEPOSITIONLOW = -745;
+    public int AUTOPOLEPOSITIONHIGH = -1080;
 
     public int CLAWOPENWAITTIME = 250;
     public int LIFTRETURNHEiGHT = 0;

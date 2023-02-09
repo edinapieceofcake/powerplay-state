@@ -20,6 +20,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private RobotState robotState;
     private Servo armServo;
     private Servo clawServo;
+    private Servo slicerServo;
     private DigitalChannel liftSwitch;
     private VoltageSensor voltageSensor;
 
@@ -37,7 +38,10 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             armServo = map.get(Servo.class, "armServo");
             clawServo = map.get(Servo.class, "clawServo");
             liftSwitch = map.get(DigitalChannel.class, "liftSwitch");
+            slicerServo = map.get(Servo.class, "slicerServo");
             voltageSensor = map.voltageSensor.iterator().next();
+
+            slicerServo.setPosition(robotState.SLICERTELEOPSTORAGEPOSITION);
 
             // set the digital channel to input.
             liftSwitch.setMode(DigitalChannel.Mode.INPUT);
