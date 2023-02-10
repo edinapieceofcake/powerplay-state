@@ -20,11 +20,7 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private RobotState robotState;
     private Servo armServo;
     private Servo clawServo;
-    private Servo slicerServo;
     private DigitalChannel liftSwitch;
-    private VoltageSensor voltageSensor;
-
-    private double liftSpeed;
     private boolean runningToPosition;
     private boolean atZeroPosition;
     private int targetPosition = 0;
@@ -38,10 +34,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             armServo = map.get(Servo.class, "armServo");
             clawServo = map.get(Servo.class, "clawServo");
             liftSwitch = map.get(DigitalChannel.class, "liftSwitch");
-            slicerServo = map.get(Servo.class, "slicerServo");
-            voltageSensor = map.voltageSensor.iterator().next();
-
-            slicerServo.setPosition(robotState.SLICERTELEOPSTORAGEPOSITION);
 
             // set the digital channel to input.
             liftSwitch.setMode(DigitalChannel.Mode.INPUT);
@@ -163,11 +155,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         robotState.ArmPosition = Math.round(armServo.getPosition() * 100);
         robotState.LiftSwitch = liftSwitch.getState();
         robotState.LiftMotorReset = liftMotorReset;
-        robotState.Voltage = voltageSensor.getVoltage();
-
-        if (robotState.Voltage < 10) {
-            liftMotor.setTargetPosition(liftMotor.getTargetPosition());
-        }
     }
 
     public void setLiftProperties(double liftDown, double liftUp, boolean armFront, boolean armSide, boolean armBack,

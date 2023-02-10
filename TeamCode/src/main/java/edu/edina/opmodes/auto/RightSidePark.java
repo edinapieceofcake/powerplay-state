@@ -67,7 +67,6 @@ public class RightSidePark extends LinearOpMode {
     private RobotState robotState = new RobotState();
     private Servo armServo;
     private Servo clawServo;
-    private Servo slicerServo;
     private ColorSensor backColor;
     private DistanceSensor frontDistance;
 
@@ -102,7 +101,6 @@ public class RightSidePark extends LinearOpMode {
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
         armServo = hardwareMap.get(Servo.class, "armServo");
         clawServo = hardwareMap.get(Servo.class, "clawServo");
-        slicerServo = hardwareMap.get(Servo.class, "slicerServo");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
         frontDistance = hardwareMap.get(DistanceSensor.class, "frontDistance");
         final float[] hsvValues = new float[3];
@@ -119,8 +117,6 @@ public class RightSidePark extends LinearOpMode {
 
         armServo.setPosition(robotState.ARMFRONTPOSITION);
         robotState.ArmServoPosition = ArmServoPosition.Front;
-
-        slicerServo.setPosition(robotState.SLICERTELEOPSTORAGEPOSITION);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(new Pose2d(33, -65, Math.toRadians(-180)));
