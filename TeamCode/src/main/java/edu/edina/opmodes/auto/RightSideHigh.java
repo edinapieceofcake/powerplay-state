@@ -138,13 +138,13 @@ public class RightSideHigh extends LinearOpMode {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Open;
                 } )
-                .strafeTo(new Vector2d(32, -25))
+                .strafeTo(new Vector2d(30.5, -24))
                 .build();
 
         // cone two pickup
         TrajectorySequence backToPickup1 = drive.trajectorySequenceBuilder(start.end())
-                .strafeLeft(15.5)
-                .strafeRight(3)
+                .strafeLeft(16.5)
+                .strafeRight(4)
                 .forward(21)
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMFRONTPOSITION);

@@ -158,7 +158,7 @@ public class LeftSideMedium extends LinearOpMode {
 
         // cone two drop off
         TrajectorySequence backToDropOff1 = drive.trajectorySequenceBuilder(new Pose2d(-60, -10, Math.toRadians(-180)))
-                .strafeTo(new Vector2d(-23, -10))
+                .strafeTo(new Vector2d(-24, -9))
                 .addTemporalMarker(.1, () -> {
                     liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);
                 })
@@ -194,7 +194,7 @@ public class LeftSideMedium extends LinearOpMode {
 
         // cone three drop off
         TrajectorySequence backToDropOff2 = drive.trajectorySequenceBuilder(backToPickup2.end())
-                .strafeTo(new Vector2d(-23, -10))
+                .strafeTo(new Vector2d(-24, -9))
                 .addTemporalMarker(.1, () -> {
                     liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);
                 })
@@ -203,7 +203,7 @@ public class LeftSideMedium extends LinearOpMode {
                     robotState.ArmServoPosition = ArmServoPosition.Side;
                     slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
-                .addTemporalMarker(2, () -> {
+                .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Open;
                 } )
@@ -230,7 +230,7 @@ public class LeftSideMedium extends LinearOpMode {
 
         // cone four drop off
         TrajectorySequence backToDropOff3 = drive.trajectorySequenceBuilder(backToPickup3.end())
-                .strafeTo(new Vector2d(-23, -10))
+                .strafeTo(new Vector2d(-24, -10))
                 .addTemporalMarker(.1, () -> {
                     liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);
                 })
@@ -239,7 +239,7 @@ public class LeftSideMedium extends LinearOpMode {
                     robotState.ArmServoPosition = ArmServoPosition.Side;
                     slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
-                .addTemporalMarker(2, () -> {
+                .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Open;
                 } )
@@ -266,14 +266,14 @@ public class LeftSideMedium extends LinearOpMode {
 
         // cone five drop off
         TrajectorySequence backToDropOff4 = drive.trajectorySequenceBuilder(backToPickup4.end())
-                .strafeTo(new Vector2d(-23, -10))
+                .strafeTo(new Vector2d(-24, -10))
                 .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
                     slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
-                .addTemporalMarker(2, () -> {
+                .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Open;
                 } )
@@ -300,14 +300,14 @@ public class LeftSideMedium extends LinearOpMode {
 
         // cone six drop off
         TrajectorySequence backToDropOff5 = drive.trajectorySequenceBuilder(backToPickup5.end())
-                .strafeTo(new Vector2d(-23, -10))
+                .strafeTo(new Vector2d(-24, -10))
                 .addTemporalMarker(.1, () -> { liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);})
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
                     slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
-                .addTemporalMarker(2, () -> {
+                .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Open;
                 } )
