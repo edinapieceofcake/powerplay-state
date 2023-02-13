@@ -15,7 +15,6 @@ import edu.edina.library.util.Stickygamepad;
 public class TestSlicer extends LinearOpMode {
     private Servo clawServo;
     private Servo armServo;
-    private Servo slicerServo;
     private DcMotorEx liftMotor;
 
     @Override
@@ -25,7 +24,6 @@ public class TestSlicer extends LinearOpMode {
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
         armServo = hardwareMap.get(Servo.class, "armServo");
-        slicerServo = hardwareMap.get(Servo.class, "slicerServo");
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
 
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -35,7 +33,6 @@ public class TestSlicer extends LinearOpMode {
         // set the digital channel to input.
         armServo.setPosition(robotState.ARMFRONTPOSITION);
         clawServo.setPosition(robotState.CLAWOPENPOSITION);
-        slicerServo.setPosition(robotState.SLICERSTORAGEPOSITION);
 
         waitForStart();
 
@@ -61,29 +58,24 @@ public class TestSlicer extends LinearOpMode {
 
             if (pad1.b) {
                 liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONHIGH);
-                slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
             }
 
             if (pad1.y) {
                 // slicer in front
                 clawServo.setPosition(robotState.CLAWOPENPOSITION);
                 sleep(100);
-                slicerServo.setPosition(1);
             }
 
             if (pad1.x) {
                 // slicer in back requiring more rotation
                 clawServo.setPosition(robotState.CLAWOPENPOSITION);
                 sleep(100);
-                slicerServo.setPosition(robotState.SLICERSTORAGEPOSITION);
             }
 
             if (pad1.left_bumper) {
-                slicerServo.setPosition(slicerServo.getPosition() + .01);
             }
 
             if (pad1.right_bumper) {
-                slicerServo.setPosition(slicerServo.getPosition() - .01); // .32
             }
 
             if (gamepad1.left_trigger != 0) {
@@ -96,7 +88,6 @@ public class TestSlicer extends LinearOpMode {
 
             telemetry.addData("Claw Servo", clawServo.getPosition());
             telemetry.addData("Arm Servo", armServo.getPosition());
-            telemetry.addData("Slicer Servo", slicerServo.getPosition());
             telemetry.addData("Lift Location", liftMotor.getCurrentPosition());
 
             telemetry.update();

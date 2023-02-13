@@ -67,7 +67,6 @@ public class LeftSideMedium extends LinearOpMode {
     private RobotState robotState = new RobotState();
     private Servo armServo;
     private Servo clawServo;
-    private Servo slicerServo;
     private ColorSensor frontColor;
     private DistanceSensor frontDistance;
 
@@ -102,7 +101,6 @@ public class LeftSideMedium extends LinearOpMode {
         liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
         armServo = hardwareMap.get(Servo.class, "armServo");
         clawServo = hardwareMap.get(Servo.class, "clawServo");
-        slicerServo = hardwareMap.get(Servo.class, "slicerServo");
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         frontDistance = hardwareMap.get(DistanceSensor.class, "frontDistance");
         final float[] hsvValues = new float[3];
@@ -119,8 +117,6 @@ public class LeftSideMedium extends LinearOpMode {
 
         armServo.setPosition(robotState.ARMBACKPOSITION);
         robotState.ArmServoPosition = ArmServoPosition.Back;
-
-        slicerServo.setPosition(0);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(new Pose2d(-33, -65, Math.toRadians(-180)));
@@ -165,7 +161,6 @@ public class LeftSideMedium extends LinearOpMode {
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
-                    slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                     } )
                 .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENFORDROPOFF);
@@ -182,7 +177,6 @@ public class LeftSideMedium extends LinearOpMode {
                 })
                 .addTemporalMarker(1.0, () -> {
                     clawServo.setPosition(robotState.CLAWMIDDLEPOSITION);
-                    slicerServo.setPosition(robotState.SLICERSTORAGEPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Middle;
                     liftMotor.setTargetPosition(robotState.CONESTACKPOSITION4);
                 })
@@ -201,7 +195,6 @@ public class LeftSideMedium extends LinearOpMode {
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
-                    slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
                 .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
@@ -218,7 +211,6 @@ public class LeftSideMedium extends LinearOpMode {
                 })
                 .addTemporalMarker(1.0, () -> {
                     clawServo.setPosition(robotState.CLAWMIDDLEPOSITION);
-                    slicerServo.setPosition(robotState.SLICERSTORAGEPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Middle;
                     liftMotor.setTargetPosition(robotState.CONESTACKPOSITION3);
                 })
@@ -237,7 +229,6 @@ public class LeftSideMedium extends LinearOpMode {
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
-                    slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
                 .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
@@ -254,7 +245,6 @@ public class LeftSideMedium extends LinearOpMode {
                 })
                 .addTemporalMarker(1.0, () -> {
                     clawServo.setPosition(robotState.CLAWMIDDLEPOSITION);
-                    slicerServo.setPosition(robotState.SLICERSTORAGEPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Middle;
                     liftMotor.setTargetPosition(robotState.CONESTACKPOSITION2);
                 })
@@ -271,7 +261,6 @@ public class LeftSideMedium extends LinearOpMode {
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
-                    slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
                 .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
@@ -288,7 +277,6 @@ public class LeftSideMedium extends LinearOpMode {
                 })
                 .addTemporalMarker(1.0, () -> {
                     clawServo.setPosition(robotState.CLAWMIDDLEPOSITION);
-                    slicerServo.setPosition(robotState.SLICERSTORAGEPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Middle;
                     liftMotor.setTargetPosition(robotState.CONESTACKPOSITION1);
                 })
@@ -305,7 +293,6 @@ public class LeftSideMedium extends LinearOpMode {
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
                     robotState.ArmServoPosition = ArmServoPosition.Side;
-                    slicerServo.setPosition(robotState.SLICERBACKINTOPOLEPOSITION);
                 } )
                 .addTemporalMarker(2.1, () -> {
                     clawServo.setPosition(robotState.CLAWOPENPOSITION);
@@ -332,7 +319,6 @@ public class LeftSideMedium extends LinearOpMode {
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                     clawServo.setPosition(robotState.CLAWMIDDLEPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Middle;
-                    slicerServo.setPosition(robotState.SLICERTELEOPSTORAGEPOSITION);
                 })
                 .addTemporalMarker(0.4, () -> {
                     liftMotor.setTargetPosition(0);
@@ -346,7 +332,6 @@ public class LeftSideMedium extends LinearOpMode {
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                     clawServo.setPosition(robotState.CLAWMIDDLEPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Middle;
-                    slicerServo.setPosition(robotState.SLICERTELEOPSTORAGEPOSITION);
                 })
                 .addTemporalMarker(0.4, () -> {
                     liftMotor.setTargetPosition(0);
@@ -360,7 +345,6 @@ public class LeftSideMedium extends LinearOpMode {
                     robotState.ArmServoPosition = ArmServoPosition.Front;
                     clawServo.setPosition(robotState.CLAWMIDDLEPOSITION);
                     robotState.ClawServoPosition = ClawServoPosition.Middle;
-                    slicerServo.setPosition(robotState.SLICERTELEOPSTORAGEPOSITION);
                 })
                 .addTemporalMarker(0.4, () -> {
                     liftMotor.setTargetPosition(0);
@@ -456,9 +440,7 @@ public class LeftSideMedium extends LinearOpMode {
             }
 
             double distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH) - .25;
-            if (distanceToTravel > 4) {
-                distanceToTravel = 4;
-            }
+
             TrajectorySequence forward = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                     .resetConstraints()
                     .forward(distanceToTravel)
