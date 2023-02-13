@@ -440,9 +440,7 @@ public class LeftSideMedium extends LinearOpMode {
             }
 
             double distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH) - .25;
-            if (distanceToTravel > 4) {
-                distanceToTravel = 4;
-            }
+
             TrajectorySequence forward = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                     .resetConstraints()
                     .forward(distanceToTravel)

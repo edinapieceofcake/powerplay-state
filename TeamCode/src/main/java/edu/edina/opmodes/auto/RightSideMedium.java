@@ -201,7 +201,7 @@ public class RightSideMedium extends LinearOpMode {
 
         // cone three dropoff
         TrajectorySequence backToDropOff2 = drive.trajectorySequenceBuilder(backToPickup2.end())
-                .strafeTo(new Vector2d(25, -12))
+                .strafeTo(new Vector2d(25, -11))
                 .addTemporalMarker(.1, () -> {
                     liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);
                 })
@@ -271,7 +271,7 @@ public class RightSideMedium extends LinearOpMode {
         TrajectorySequence backToDropOff4 = drive.trajectorySequenceBuilder(backToPickup4.end())
                 .strafeTo(new Vector2d(25, -12))
                 .addTemporalMarker(.1, () -> {
-                    liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW);
+                    liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW - 10);
                 })
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
@@ -306,7 +306,7 @@ public class RightSideMedium extends LinearOpMode {
         TrajectorySequence backToDropOff5 = drive.trajectorySequenceBuilder(backToPickup5.end())
                 .strafeTo(new Vector2d(25, -12))
                 .addTemporalMarker(.1, () -> {
-                    liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW - 10);
+                    liftMotor.setTargetPosition(robotState.AUTOPOLEPOSITIONLOW - 30);
                 })
                 .addTemporalMarker(.5, () -> {
                     armServo.setPosition(robotState.ARMSIDEPOSITION);
@@ -461,9 +461,6 @@ public class RightSideMedium extends LinearOpMode {
             }
 
             double distanceToTravel = frontDistance.getDistance(DistanceUnit.INCH) - .5 ;
-            if (distanceToTravel > 4) {
-                distanceToTravel = 4;
-            }
 
             TrajectorySequence back = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                     .setVelConstraint(new TrajectoryVelocityConstraint() {

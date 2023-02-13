@@ -462,9 +462,6 @@ public class LeftSideHigh extends LinearOpMode {
             }
 
             double lastDistanceToTravel = frontDistance.getDistance(DistanceUnit.INCH) ;
-            if (lastDistanceToTravel > 5) {
-                lastDistanceToTravel = 5;
-            }
 
             TrajectorySequence back = drive.trajectorySequenceBuilder(drive.getPoseEstimate())
                     .setVelConstraint(new TrajectoryVelocityConstraint() {
