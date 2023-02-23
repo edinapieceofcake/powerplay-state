@@ -1,13 +1,56 @@
 package org.firstinspires.ftc.teamcode.util;
 
+import android.util.Log;
+
 import com.acmerobotics.roadrunner.util.NanoClock;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.sun.tools.javac.tree.DCTree;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Wraps a motor instance to provide corrected velocity counts and allow reversing independently of the corresponding
  * slot's motor direction
  */
+class EncoderTimerTask extends TimerTask {
+    DcMotorEx _motor;
+    long _previousTime;
+    long _previousPosition;
+    double _currentVelocity;
+
+    public EncoderTimerTask(DcMotorEx motor) {
+        _motor = motor;
+        _previousPosition = 0;
+        _currentVelocity = 0.0;
+        _previousTime = System.currentTimeMillis();
+    }
+
+    public void run() {
+        long currentPosition = _motor.getCurrentPosition();
+
+        if (currentPosition != _previousPosition) {
+            long currentTime = System.currentTimeMillis();
+            long dt = currentTime - _previousTime;
+
+            synchronized (this) {
+                _currentVelocity = (currentPosition - _previousPosition) / dt;
+            }
+
+            _previousTime = currentTime;
+        }
+
+    }
+
+    public double getVelocity()
+    {
+        synchronized (this) {
+            return _currentVelocity;
+        }
+    }
+}
+
 public class Encoder {
     private final static int CPS_STEP = 0x10000;
 
@@ -47,6 +90,9 @@ public class Encoder {
     private double[] velocityEstimates;
     private double lastUpdateTime;
 
+    private Timer timer;
+    private EncoderTimerTask encoderTimerTask;
+
     public Encoder(DcMotorEx motor, NanoClock clock) {
         this.motor = motor;
         this.clock = clock;
@@ -56,6 +102,11 @@ public class Encoder {
         this.lastPosition = 0;
         this.velocityEstimates = new double[3];
         this.lastUpdateTime = clock.seconds();
+
+        timer = new Timer();
+        encoderTimerTask = new EncoderTimerTask(motor);
+
+        timer.schedule(encoderTimerTask, 100, 50);
     }
 
     public Encoder(DcMotorEx motor) {
@@ -120,6 +171,11 @@ public class Encoder {
         double median = velocityEstimates[0] > velocityEstimates[1]
                 ? Math.max(velocityEstimates[1], Math.min(velocityEstimates[0], velocityEstimates[2]))
                 : Math.max(velocityEstimates[0], Math.min(velocityEstimates[1], velocityEstimates[2]));
-        return inverseOverflow(getRawVelocity(), median);
+
+        double answer = inverseOverflow(getRawVelocity(), median);
+        Log.d("getCorrectedVelocities", String.format("%f, %f", encoderTimerTask.getVelocity(),
+                answer));
+
+        return answer;
     }
 }
