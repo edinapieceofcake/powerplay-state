@@ -2,6 +2,7 @@ package edu.edina.opmodes.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import edu.edina.library.util.Stickygamepad;
 
@@ -15,7 +16,15 @@ public class NoThreadTeleopRR extends OpMode {
     public void init() {
         _gamepad1 = new Stickygamepad(gamepad1);
         _gamepad2 = new Stickygamepad(gamepad2);
+
         robot = new NoThreadRobotRR(this, telemetry);
+
+        Servo leftServo = hardwareMap.get(Servo.class, "leftPodServo");
+        Servo rightServo = hardwareMap.get(Servo.class, "rightPodServo");
+        Servo centerServo = hardwareMap.get(Servo.class, "centerPodServo");
+        leftServo.setPosition(robot.robotState.SERVOUPPOSITION);
+        rightServo.setPosition(robot.robotState.SERVOUPPOSITION);
+        centerServo.setPosition(robot.robotState.SERVOUPPOSITION);
     }
 
     @Override

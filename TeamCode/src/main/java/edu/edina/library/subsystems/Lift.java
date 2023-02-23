@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import java.sql.Time;
 
@@ -20,13 +21,10 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
     private Servo armServo;
     private Servo clawServo;
     private DigitalChannel liftSwitch;
-
-    private double liftSpeed;
     private boolean runningToPosition;
     private boolean atZeroPosition;
     private int targetPosition = 0;
     private long clawOpenStartedTime = 0;
-    private long liftMotorStartedTime = 0;
     private boolean liftMotorReset = false;
     private boolean clawOpen = false;
 
@@ -36,7 +34,6 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             armServo = map.get(Servo.class, "armServo");
             clawServo = map.get(Servo.class, "clawServo");
             liftSwitch = map.get(DigitalChannel.class, "liftSwitch");
-            liftMotorStartedTime = System.currentTimeMillis() - robotState.LIFTWAITTIME;
 
             // set the digital channel to input.
             liftSwitch.setMode(DigitalChannel.Mode.INPUT);
@@ -48,8 +45,8 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
             liftMotor.setTargetPosition(robotState.FutureTargetPosition);
             liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-            clawServo.setPosition(robotState.CLAWCLOSEDPOSITION);
-            robotState.ClawServoPosition = ClawServoPosition.Closed;
+            clawServo.setPosition(robotState.CLAWOPENPOSITION);
+            robotState.ClawServoPosition = ClawServoPosition.Open;
 
             armServo.setPosition(robotState.ARMFRONTPOSITION);
             robotState.ArmServoPosition = ArmServoPosition.Front;
@@ -213,6 +210,5 @@ public class Lift extends edu.edina.library.subsystems.Subsystem {
         robotState.TargetPoleLocation = PoleLocation.None;
         robotState.FutureTargetPosition = liftMotor.getTargetPosition();
         clawOpenStartedTime = 0;
-        liftMotorStartedTime = 0;
     }
 }

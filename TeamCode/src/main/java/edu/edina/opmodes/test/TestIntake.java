@@ -14,12 +14,11 @@ import org.firstinspires.ftc.teamcode.util.Encoder;
 import edu.edina.library.util.Stickygamepad;
 
 @TeleOp
-//@Disabled
+@Disabled
 public class TestIntake extends LinearOpMode {
     private Servo clawServo;
     private Servo armServo;
     private DcMotorEx liftMotor;
-
     private DcMotorEx leftEncoder;
     private DcMotorEx rightEncoder;
     private DcMotorEx centerEncoder;
@@ -47,7 +46,6 @@ public class TestIntake extends LinearOpMode {
 
         // set the digital channel to input.
         armServo.setPosition(.5);
-
         clawServo.setPosition(.5);
 
         waitForStart();

@@ -16,18 +16,33 @@ public class RobotState {
     public double ArmPosition = 0.0;
     public boolean LiftSwitch = false;
     public boolean LiftMotorReset = false;
-    public double SpeedMultiplier = 0.0;
+    public double SpeedMultiplier = 0.5;
     public double CLAWOPENPOSITION = 0.56;
+    public double CLAWMIDDLEPOSITION = 0.7;
     public double CLAWCLOSEDPOSITION = 0.83;
+    public double CLAWOPENFORDROPOFF = .59;
     public int CLAWOPENPOSITION100 = 56;
     public double ARMFRONTPOSITION = 0.14;
     public double ARMBACKPOSITION = 0.83;
     public double ARMSIDEPOSITION = 0.5;
 
+    public static double SLICERBACKINTOPOLEPOSITION = .8;
+    public static double SLICERFORWARDINTOPOLEPOSITION = .78;
+    public static double SLICERSTORAGEPOSITION = .32;
+    public static double SLICERDROPFORWARDINTOPOLEPOSITION = 1;
+    public static double SLICERTELEOPSTORAGEPOSITION = .2;
+
+    public int CONESTACKPOSITION5 = -155;
+    public int CONESTACKPOSITION4 = -115;
+    public int CONESTACKPOSITION3 = -65;
+    public int CONESTACKPOSITION2 = -35;
+    public int CONESTACKPOSITION1 = 0;
+
     public int POLEPOSITIONLOW = -465;
     public int POLEPOSITIONMIDDLE = -805;
     public int POLEPOSITIONHIGH = -1110;
-    public int LIFTWAITTIME = 250;
+    public int AUTOPOLEPOSITIONLOW = -745;
+    public int AUTOPOLEPOSITIONHIGH = -1070;
 
     public int CLAWOPENWAITTIME = 250;
     public int LIFTRETURNHEiGHT = 0;
@@ -38,10 +53,15 @@ public class RobotState {
     public int POLEPOSITIONFIVE = -200;
 
     public double LowSpeedMultiplier = .5;
-    public double HighSpeedMultiplier = .6;
+    public double HighSpeedMultiplier = .75;
 
     public double LiftUpSpeed = .9;
     public double LiftDownSpeed = .5;
+
+    public double SERVOUPPOSITION = .5;
+    public double SERVODOWNPOSITION = 1.0;
+
+    public double Voltage = 0.0;
 
     public RobotState() {}
 
@@ -57,6 +77,7 @@ public class RobotState {
             telemetry.addData("TargetPoleLocation", TargetPoleLocation);
             telemetry.addData("LiftUpSpeed", LiftUpSpeed);
             telemetry.addData("LiftDownSpeed", LiftDownSpeed);
+            telemetry.addData("Voltage", Voltage);
         } else {
             telemetry.addData("Unable to setup motors liftMotor or setup servos armServo or latchServo", "");
         }

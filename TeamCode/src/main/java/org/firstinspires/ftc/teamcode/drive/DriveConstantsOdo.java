@@ -109,10 +109,10 @@ public class DriveConstantsOdo {
      * You are free to raise this on your own if you would like. It is best determined through experimentation.
 
      */
-    public static double MAX_VEL = 50; //73.17330064499293;
-    public static double MAX_ACCEL = 40; //73.17330064499293;
-    public static double MAX_ANG_VEL = Math.toRadians(360); //Math.toRadians(349.376775);
-    public static double MAX_ANG_ACCEL = Math.toRadians(360); //Math.toRadians(349.376775);
+    public static double MAX_VEL = 40; //73.17330064499293;
+    public static double MAX_ACCEL = 30; //73.17330064499293;
+    public static double MAX_ANG_VEL = Math.toRadians(180); //Math.toRadians(349.376775);
+    public static double MAX_ANG_ACCEL = Math.toRadians(90); //Math.toRadians(349.376775);
 
 
     public static double encoderTicksToInches(double ticks) {
